@@ -1,0 +1,324 @@
+f|Inception|2010|Sci-Fi,Action,Thriller|8.8||Ein Dieb, der Geheimnisse aus Träumen stiehlt, soll zum ersten Mal eine Idee einpflanzen.
+f|Interstellar|2014|Sci-Fi,Drama,Abenteuer|8.7||Eine Raumfahrtcrew sucht durch ein Wurmloch nach einer neuen Heimat für die sterbende Menschheit.
+f|The Dark Knight|2008|Action,Krimi,Drama|9.0||Batman muss sich dem Joker stellen, der Gotham ins Chaos stürzen will.
+f|Parasite|2019|Thriller,Drama,Komödie|8.5||Eine arme Familie schleicht sich Schritt für Schritt in den Haushalt einer reichen Familie ein.
+f|Pulp Fiction|1994|Krimi,Drama|8.9||Mehrere Geschichten aus der Unterwelt von Los Angeles kreuzen sich auf überraschende Weise.
+f|Die Verurteilten|1994|Drama|9.3||Ein unschuldig verurteilter Banker findet im Gefängnis Freundschaft und Hoffnung.
+f|Der Pate|1972|Krimi,Drama|9.2||Die Mafiafamilie Corleone und ihr widerwilliger Erbe Michael.
+f|Forrest Gump|1994|Drama,Romantik|8.8||Ein einfacher Mann erlebt zufällig die großen Momente der US-Geschichte mit.
+f|Fight Club|1999|Drama,Thriller|8.8||Ein schlafloser Angestellter gründet mit einem charismatischen Fremden einen Untergrund-Kampfclub.
+f|Matrix|1999|Sci-Fi,Action|8.7||Ein Hacker erfährt, dass die Welt eine Simulation ist, und schließt sich dem Widerstand an.
+f|Der Herr der Ringe: Die Gefährten|2001|Fantasy,Abenteuer|8.9||Ein Hobbit bricht auf, um einen gefährlichen Ring zu zerstören.
+f|Der Herr der Ringe: Die Rückkehr des Königs|2003|Fantasy,Abenteuer|9.0||Das große Finale im Kampf um Mittelerde.
+f|Gladiator|2000|Action,Drama,Historie|8.5||Ein verratener römischer General kämpft sich als Gladiator zurück.
+f|Titanic|1997|Romantik,Drama|7.9||Eine verbotene Liebe an Bord des berühmten Schiffs auf seiner einzigen Fahrt.
+f|Avatar|2009|Sci-Fi,Abenteuer,Action|7.9||Ein querschnittsgelähmter Marine lebt auf dem Mond Pandora unter den Na'vi.
+f|Avatar: The Way of Water|2022|Sci-Fi,Abenteuer|7.5||Jake Sully und seine Familie fliehen zu den Meeresvölkern Pandoras.
+f|Dune|2021|Sci-Fi,Abenteuer|8.0||Paul Atreides gerät auf dem Wüstenplaneten Arrakis zwischen mächtige Fronten.
+f|Dune: Part Two|2024|Sci-Fi,Abenteuer,Action|8.5||Paul verbündet sich mit den Fremen und nimmt Rache an den Harkonnen.
+f|Oppenheimer|2023|Drama,Historie|8.3||Das Leben des Physikers, der die Atombombe mitentwickelte.
+f|Barbie|2023|Komödie,Fantasy|6.8||Barbie verlässt Barbieland und entdeckt die echte Welt.
+f|Everything Everywhere All at Once|2022|Sci-Fi,Komödie,Action|7.8||Eine Waschsalonbesitzerin springt durch Paralleluniversen, um die Welt zu retten.
+f|Joker|2019|Drama,Thriller,Krimi|8.4||Ein gescheiterter Komiker wird in Gotham zum gefürchteten Joker.
+f|La La Land|2016|Romantik,Musik,Drama|8.0||Eine Schauspielerin und ein Jazzpianist verlieben sich in Los Angeles.
+f|Whiplash|2014|Drama,Musik|8.5||Ein junger Schlagzeuger gerät an einen gnadenlosen Lehrer.
+f|The Wolf of Wall Street|2013|Komödie,Krimi,Drama|8.2||Aufstieg und Fall des exzessiven Börsenmaklers Jordan Belfort.
+f|Django Unchained|2012|Western,Drama|8.5||Ein befreiter Sklave und ein Kopfgeldjäger wollen seine Frau retten.
+f|Inglourious Basterds|2009|Krieg,Drama,Abenteuer|8.4||Eine Spezialeinheit plant im besetzten Frankreich ein Attentat auf die Naziführung.
+f|Shutter Island|2010|Thriller,Mystery|8.2||Ein US-Marshal ermittelt in einer Klinik für psychisch kranke Straftäter.
+f|Gone Girl|2014|Thriller,Mystery,Drama|8.1||Am fünften Hochzeitstag verschwindet Amy, und ihr Mann gerät unter Verdacht.
+f|Prisoners|2013|Thriller,Krimi,Drama|8.1||Ein Vater nimmt die Suche nach seiner entführten Tochter selbst in die Hand.
+f|Sieben|1995|Thriller,Krimi|8.6||Zwei Ermittler jagen einen Serienmörder, der nach den sieben Todsünden tötet.
+f|Das Schweigen der Lämmer|1991|Thriller,Krimi|8.6||Eine FBI-Anwärterin sucht Hilfe beim inhaftierten Kannibalen Hannibal Lecter.
+f|Get Out|2017|Horror,Thriller|7.8||Ein junger Mann besucht die Familie seiner Freundin und stößt auf ein grauenvolles Geheimnis.
+f|Hereditary|2018|Horror,Mystery|7.3||Nach dem Tod der Großmutter wird eine Familie von unheimlichen Ereignissen heimgesucht.
+f|A Quiet Place|2018|Horror,Sci-Fi|7.5||Eine Familie lebt in völliger Stille, um Monstern zu entgehen, die nach Geräuschen jagen.
+f|Conjuring – Die Heimsuchung|2013|Horror|7.5||Ein Dämonologen-Ehepaar hilft einer Familie in einem verfluchten Farmhaus.
+f|Es|2017|Horror|7.3||Eine Gruppe Kinder stellt sich einem Clown, der ihre Stadt terrorisiert.
+f|Talk to Me|2023|Horror|7.1||Teenager rufen mit einer einbalsamierten Hand Geister herbei.
+f|Nosferatu|2024|Horror,Fantasy|7.2||Eine junge Frau wird von einem uralten Vampir heimgesucht.
+f|The Substance|2024|Horror,Sci-Fi|7.3||Eine alternde Schauspielerin nimmt ein Mittel, das eine jüngere Version von ihr erschafft.
+f|Shining|1980|Horror,Drama|8.4||Ein Winterhausmeister in einem abgelegenen Hotel verliert den Verstand.
+f|Midsommar|2019|Horror,Drama|7.1||Ein Paar besucht ein Mittsommerfest in Schweden, das zum Albtraum wird.
+f|Scream|1996|Horror,Mystery|7.4||Ein maskierter Killer terrorisiert eine Kleinstadt und ihre Teenager.
+f|Smile|2022|Horror,Mystery|6.5||Eine Psychiaterin wird nach einem verstörenden Vorfall von einem Fluch verfolgt.
+f|Barbarian|2022|Horror,Thriller|7.0||Eine Frau bucht eine Ferienwohnung, die bereits doppelt vermietet ist.
+f|The Menu|2022|Thriller,Komödie,Horror|7.2||Ein exklusives Dinner auf einer Insel nimmt eine verstörende Wendung.
+f|Sinners|2025|Horror,Musik,Drama|7.6||Zwei Zwillingsbrüder eröffnen in den 1930ern einen Club im Süden und bekommen es mit Vampiren zu tun.
+f|Weapons|2025|Horror,Mystery|7.5||Alle Kinder einer Schulklasse verschwinden in derselben Nacht – bis auf eins.
+f|Am Ende der Welt|2023|Thriller,Drama|6.5|N|Ein Familienurlaub wird von einem mysteriösen Zusammenbruch aller Technik überschattet.
+f|Knives Out|2019|Krimi,Komödie,Mystery|7.9||Nach dem Tod eines Krimiautors steht seine ganze Familie unter Verdacht.
+f|Glass Onion|2022|Krimi,Komödie,Mystery|7.1|N|Detektiv Benoit Blanc ermittelt auf der Privatinsel eines Tech-Milliardärs.
+f|Wake Up Dead Man|2025|Krimi,Mystery|7.5|N|Benoit Blanc untersucht einen rätselhaften Todesfall in einer Kleinstadtgemeinde.
+f|Im Westen nichts Neues|2022|Krieg,Drama|7.8|N|Ein junger Soldat erlebt die Schrecken des Ersten Weltkriegs an der Westfront.
+f|The Irishman|2019|Krimi,Drama|7.8|N|Ein Auftragskiller blickt auf sein Leben und seine Verbindung zu Jimmy Hoffa zurück.
+f|Marriage Story|2019|Drama,Romantik|7.9|N|Ein Paar navigiert durch eine schmerzhafte Scheidung zwischen zwei Städten.
+f|Don't Look Up|2021|Komödie,Sci-Fi|7.2|N|Zwei Astronomen versuchen vergeblich, die Welt vor einem Kometen zu warnen.
+f|Bird Box|2018|Horror,Thriller|6.6|N|Eine Mutter flieht mit verbundenen Augen vor einer tödlichen Macht.
+f|Tyler Rake: Extraction|2020|Action,Thriller|6.7|N|Ein Söldner soll den entführten Sohn eines Drogenbarons aus Dhaka befreien.
+f|The Gray Man|2022|Action,Thriller|6.5|N|Ein CIA-Agent wird von seinen eigenen Leuten gejagt.
+f|KPop Demon Hunters|2025|Animation,Musik,Fantasy|8.0|N|Eine K-Pop-Girlgroup jagt nachts heimlich Dämonen.
+f|Klaus|2019|Animation,Familie,Komödie|8.2|N|Ein fauler Postbote freundet sich mit einem zurückgezogenen Spielzeugmacher an.
+f|Guillermo del Toros Pinocchio|2022|Animation,Fantasy,Familie|7.6|N|Eine düstere Neuerzählung des Märchens im faschistischen Italien.
+f|Roma|2018|Drama|7.7|N|Ein Jahr im Leben einer Haushälterin in Mexiko-Stadt Anfang der 70er.
+f|Enola Holmes|2020|Abenteuer,Krimi,Familie|6.6|N|Sherlocks jüngere Schwester sucht ihre verschwundene Mutter.
+f|Red Notice|2021|Action,Komödie|6.3|N|Ein FBI-Profiler jagt einen Kunstdieb und gerät an eine noch gerissenere Diebin.
+f|Die Schneegesellschaft|2023|Drama,Historie|7.8|N|Die wahre Geschichte des Flugzeugabsturzes in den Anden 1972.
+f|The Power of the Dog|2021|Drama,Western|6.8|N|Ein grausamer Rancher terrorisiert die neue Frau seines Bruders und deren Sohn.
+f|Saltburn|2023|Thriller,Drama|7.0|P|Ein Student verbringt den Sommer auf dem Landsitz eines reichen Kommilitonen.
+f|Air|2023|Drama|7.4|P|Wie Nike den jungen Michael Jordan unter Vertrag nahm.
+f|The Tomorrow War|2021|Sci-Fi,Action|6.5|P|Soldaten aus der Gegenwart sollen in der Zukunft gegen Aliens kämpfen.
+f|Road House|2024|Action|6.2|P|Ein Ex-UFC-Kämpfer wird Türsteher in einer rauen Bar auf den Florida Keys.
+f|Red One|2024|Action,Komödie,Familie|6.7|P|Der Weihnachtsmann wird entführt, und ein Agent muss ihn retten.
+f|Sound of Metal|2019|Drama,Musik|7.7|P|Ein Schlagzeuger verliert sein Gehör und muss sein Leben neu ordnen.
+f|Hamilton|2020|Musik,Historie|8.3|D|Das gefeierte Broadway-Musical über den Gründervater Alexander Hamilton.
+f|Soul|2020|Animation,Familie,Komödie|8.0|D|Ein Musiklehrer landet kurz vor seinem großen Auftritt im Jenseits.
+f|Luca|2021|Animation,Familie|7.4|D|Ein junges Seemonster erlebt einen Sommer an der italienischen Riviera.
+f|Rot|2022|Animation,Familie,Komödie|7.0|D|Eine 13-Jährige verwandelt sich in einen roten Panda, wenn sie sich aufregt.
+f|Encanto|2021|Animation,Familie,Musik|7.2|D|Das einzige Mitglied einer magischen Familie ohne Zauberkraft muss sie retten.
+f|Coco|2017|Animation,Familie,Musik|8.4|D|Ein Junge reist ins Reich der Toten, um seinen Ururgroßvater zu finden.
+f|Oben|2009|Animation,Abenteuer,Familie|8.3|D|Ein alter Witwer fliegt mit seinem Haus und einem Pfadfinder nach Südamerika.
+f|WALL·E|2008|Animation,Sci-Fi,Familie|8.4|D|Ein einsamer Aufräumroboter verliebt sich und folgt ihr ins All.
+f|Alles steht Kopf 2|2024|Animation,Familie,Komödie|7.6|D|Rileys Gefühle bekommen neue Mitbewohner, allen voran die Zweifel.
+f|Zoomania|2016|Animation,Familie,Krimi|8.0|D|Eine Hasen-Polizistin und ein Fuchs lösen einen Fall in einer Stadt voller Tiere.
+f|Die Eiskönigin|2013|Animation,Familie,Musik|7.4|D|Anna sucht ihre Schwester Elsa, die das Königreich in ewigen Winter versetzt hat.
+f|Ratatouille|2007|Animation,Familie,Komödie|8.1|D|Eine Ratte träumt davon, Koch in Paris zu werden.
+f|Findet Nemo|2003|Animation,Familie,Abenteuer|8.2|D|Ein Clownfisch durchquert den Ozean, um seinen Sohn zu finden.
+f|Der König der Löwen|1994|Animation,Familie,Drama|8.5|D|Der junge Löwe Simba muss sein Schicksal als König annehmen.
+f|Toy Story|1995|Animation,Familie,Komödie|8.3|D|Cowboy Woody bekommt Konkurrenz durch den Astronauten Buzz Lightyear.
+f|Avengers: Endgame|2019|Action,Sci-Fi,Abenteuer|8.4|D|Die verbliebenen Avengers wollen Thanos' Fingerschnipp rückgängig machen.
+f|Guardians of the Galaxy|2014|Action,Sci-Fi,Komödie|8.0|D|Eine Truppe von Außenseitern muss gemeinsam die Galaxis retten.
+f|Black Panther|2018|Action,Sci-Fi|7.3|D|T'Challa kehrt nach Wakanda zurück, um König zu werden.
+f|Deadpool & Wolverine|2024|Action,Komödie|7.6|D|Der respektlose Söldner zieht einen widerwilligen Wolverine in ein Multiversum-Abenteuer.
+f|Star Wars: Eine neue Hoffnung|1977|Sci-Fi,Abenteuer|8.6|D|Luke Skywalker schließt sich der Rebellion gegen das Imperium an.
+f|Star Wars: Das Imperium schlägt zurück|1980|Sci-Fi,Abenteuer|8.7|D|Die Rebellen fliehen vor dem Imperium, und Luke lernt bei Yoda.
+f|Spider-Man: Across the Spider-Verse|2023|Animation,Action,Abenteuer|8.5||Miles Morales trifft auf eine ganze Gesellschaft von Spider-Leuten.
+f|Spider-Man: No Way Home|2021|Action,Abenteuer|8.2||Peter Parker bittet Doctor Strange um Hilfe, und das Multiversum bricht auf.
+f|Top Gun: Maverick|2022|Action,Drama|8.2||Maverick bildet junge Piloten für eine fast unmögliche Mission aus.
+f|Mission: Impossible – Fallout|2018|Action,Thriller|7.7||Ethan Hunt jagt gestohlenes Plutonium und wird selbst gejagt.
+f|Mission: Impossible – The Final Reckoning|2025|Action,Thriller|7.2||Ethan Hunt kämpft gegen eine abtrünnige künstliche Intelligenz.
+f|John Wick|2014|Action,Thriller|7.4||Ein Auftragskiller im Ruhestand rächt sich für den Tod seines Hundes.
+f|Mad Max: Fury Road|2015|Action,Sci-Fi,Abenteuer|8.1||Max und Furiosa fliehen in einer endlosen Verfolgungsjagd durch die Wüste.
+f|Furiosa|2024|Action,Abenteuer|7.5||Die Vorgeschichte der jungen Furiosa im Ödland.
+f|Baby Driver|2017|Action,Krimi,Musik|7.5||Ein junger Fluchtwagenfahrer will aus der Unterwelt aussteigen.
+f|Drive|2011|Krimi,Drama,Thriller|7.8||Ein schweigsamer Stuntfahrer gerät nach einem Überfall in Lebensgefahr.
+f|Heat|1995|Krimi,Action,Thriller|8.3||Ein Polizist und ein Profi-Dieb liefern sich ein Duell in Los Angeles.
+f|Superman|2025|Action,Sci-Fi|7.1||Clark Kent sucht seinen Platz zwischen kryptonischer Herkunft und menschlicher Familie.
+f|Gladiator II|2024|Action,Drama,Historie|6.0||Lucius wird versklavt und muss im Kolosseum kämpfen.
+f|Twisters|2024|Action,Abenteuer|6.5||Sturmjäger wollen eine verheerende Tornadoserie stoppen.
+f|Godzilla Minus One|2023|Sci-Fi,Action,Drama|7.7||Im zerstörten Nachkriegsjapan taucht Godzilla auf.
+f|Civil War|2024|Action,Thriller,Krieg|7.0||Journalisten reisen durch ein vom Bürgerkrieg zerrissenes Amerika.
+f|One Battle After Another|2025|Action,Krimi,Drama|7.8||Ein Ex-Revolutionär muss seine Tochter vor einem alten Feind retten.
+f|Zurück in die Zukunft|1985|Sci-Fi,Abenteuer,Komödie|8.5||Marty McFly reist versehentlich in die 50er und muss seine Eltern verkuppeln.
+f|Jurassic Park|1993|Abenteuer,Sci-Fi|8.2||In einem Freizeitpark mit Dinosauriern geht alles schief.
+f|E.T. – Der Außerirdische|1982|Sci-Fi,Familie|7.9||Ein Junge versteckt einen gestrandeten Außerirdischen.
+f|Der weiße Hai|1975|Thriller,Abenteuer|8.1||Ein Polizeichef jagt einen Hai, der einen Badeort terrorisiert.
+f|Alien|1979|Horror,Sci-Fi|8.5||Die Crew eines Frachtschiffs wird von einer tödlichen Lebensform gejagt.
+f|Terminator 2|1991|Action,Sci-Fi|8.6||Ein umprogrammierter Terminator soll den jungen John Connor beschützen.
+f|Blade Runner 2049|2017|Sci-Fi,Drama,Mystery|8.0||Ein Blade Runner entdeckt ein Geheimnis, das die Gesellschaft erschüttern könnte.
+f|Arrival|2016|Sci-Fi,Drama,Mystery|7.9||Eine Linguistin soll mit Außerirdischen kommunizieren.
+f|Der Marsianer|2015|Sci-Fi,Abenteuer,Drama|8.0||Ein Astronaut muss allein auf dem Mars überleben.
+f|Gravity|2013|Sci-Fi,Thriller|7.7||Zwei Astronauten treiben nach einem Unfall hilflos im All.
+f|Ex Machina|2014|Sci-Fi,Thriller|7.7||Ein Programmierer soll das Bewusstsein eines humanoiden Roboters testen.
+f|Her|2013|Romantik,Sci-Fi,Drama|8.0||Ein einsamer Mann verliebt sich in ein Betriebssystem.
+f|Vergiss mein nicht!|2004|Romantik,Sci-Fi,Drama|8.3||Ein Mann lässt die Erinnerungen an seine Ex-Freundin löschen und bereut es.
+f|Die fabelhafte Welt der Amélie|2001|Komödie,Romantik|8.3||Eine schüchterne Kellnerin in Paris beschließt, das Leben anderer zu verbessern.
+f|Notting Hill|1999|Romantik,Komödie|7.2||Ein Buchhändler verliebt sich in einen Hollywoodstar.
+f|Tatsächlich… Liebe|2003|Romantik,Komödie|7.6||Zehn Liebesgeschichten in London in den Wochen vor Weihnachten.
+f|Crazy Rich|2018|Romantik,Komödie|6.9||Eine New Yorkerin lernt die steinreiche Familie ihres Freundes in Singapur kennen.
+f|Wie ein einziger Tag|2004|Romantik,Drama|7.8||Ein alter Mann liest einer Frau die Geschichte einer großen Sommerliebe vor.
+f|Stolz und Vorurteil|2005|Romantik,Drama|7.8||Elizabeth Bennet und der stolze Mr. Darcy finden trotz Vorurteilen zueinander.
+f|Alles eine Frage der Zeit|2013|Romantik,Komödie,Fantasy|7.8||Ein junger Mann kann durch die Zeit reisen und nutzt das für die Liebe.
+f|Past Lives|2023|Romantik,Drama|7.8||Zwei Kindheitsfreunde aus Seoul treffen sich nach über 20 Jahren wieder.
+f|Wo die Lüge hinfällt|2023|Romantik,Komödie|6.1||Zwei Erzfeinde spielen auf einer Hochzeit in Australien ein Paar.
+f|Challengers|2024|Drama,Romantik|7.1||Ein Tennis-Dreieck aus Liebe und Rivalität über 13 Jahre.
+f|Anora|2024|Drama,Komödie,Romantik|7.5||Eine Stripperin heiratet überstürzt den Sohn eines russischen Oligarchen.
+f|Poor Things|2023|Fantasy,Komödie,Romantik|7.8||Eine wiederbelebte junge Frau entdeckt die Welt auf ihre ganz eigene Art.
+f|Grand Budapest Hotel|2014|Komödie,Abenteuer|8.1||Ein legendärer Concierge und sein Lobby-Boy geraten in einen Erbschaftsstreit.
+f|Superbad|2007|Komödie|7.6||Zwei Schulfreunde wollen vor dem Abschluss noch eine legendäre Party erleben.
+f|Hangover|2009|Komödie|7.7||Nach einem Junggesellenabschied in Las Vegas fehlt der Bräutigam.
+f|Ziemlich beste Freunde|2011|Komödie,Drama|8.5||Ein reicher Querschnittsgelähmter stellt einen ungewöhnlichen Pfleger ein.
+f|Fack ju Göhte|2013|Komödie|6.8||Ein Ex-Häftling wird Aushilfslehrer, um an seine versteckte Beute zu kommen.
+f|Good Bye, Lenin!|2003|Komödie,Drama|7.7||Ein Sohn verheimlicht seiner kranken Mutter den Fall der Mauer.
+f|Das Leben der Anderen|2006|Drama,Thriller|8.4||Ein Stasi-Offizier überwacht einen Schriftsteller und beginnt zu zweifeln.
+f|Lola rennt|1998|Thriller,Krimi|7.6||Lola hat 20 Minuten, um 100.000 Mark für ihren Freund aufzutreiben.
+f|Der Schuh des Manitu|2001|Komödie,Western|6.6||Abahachi und Ranger geraten in eine chaotische Wildwest-Schatzsuche.
+f|Das Boot|1981|Krieg,Drama|8.4||Die Besatzung eines U-Boots im Zweiten Weltkrieg kämpft ums Überleben.
+f|1917|2019|Krieg,Drama|8.2||Zwei Soldaten müssen hinter feindlichen Linien eine lebenswichtige Nachricht überbringen.
+f|Der Soldat James Ryan|1998|Krieg,Drama|8.6||Nach der Landung in der Normandie soll ein Trupp einen einzelnen Soldaten finden.
+f|Dunkirk|2017|Krieg,Historie,Action|7.8||Die dramatische Evakuierung alliierter Soldaten aus Dünkirchen 1940.
+f|Schindlers Liste|1993|Drama,Historie|9.0||Ein Unternehmer rettet über tausend Juden vor dem Holocaust.
+f|Green Book|2018|Drama,Komödie|8.2||Ein Türsteher fährt einen schwarzen Pianisten durch die Südstaaten der 60er.
+f|Bohemian Rhapsody|2018|Musik,Drama|7.9||Der Aufstieg von Queen und Freddie Mercury bis zum Live-Aid-Konzert.
+f|Elvis|2022|Musik,Drama|7.3||Das Leben von Elvis Presley aus Sicht seines Managers.
+f|A Star Is Born|2018|Musik,Romantik,Drama|7.6||Ein Musikstar entdeckt eine junge Sängerin und verliebt sich in sie.
+f|Greatest Showman|2017|Musik,Drama|7.5||P. T. Barnum erfindet das Zirkus-Spektakel.
+f|Wicked|2024|Musik,Fantasy|7.4||Die spätere böse Hexe des Westens und ihre Freundschaft zu Glinda.
+f|Mamma Mia!|2008|Musik,Komödie,Romantik|6.5||Eine Braut lädt drei mögliche Väter zu ihrer Hochzeit auf eine griechische Insel ein.
+f|Harry Potter und der Stein der Weisen|2001|Fantasy,Abenteuer,Familie|7.7||Harry erfährt, dass er ein Zauberer ist, und kommt nach Hogwarts.
+f|Harry Potter und der Gefangene von Askaban|2004|Fantasy,Abenteuer,Familie|7.9||Ein entflohener Häftling soll es auf Harry abgesehen haben.
+f|Fluch der Karibik|2003|Abenteuer,Fantasy,Action|8.1|D|Captain Jack Sparrow hilft, eine entführte Gouverneurstochter zu retten.
+f|Jäger des verlorenen Schatzes|1981|Abenteuer,Action|8.4||Der Archäologe Indiana Jones jagt die Bundeslade.
+f|Chihiros Reise ins Zauberland|2001|Animation,Fantasy,Familie|8.6||Ein Mädchen gerät in eine Geisterwelt und muss ihre Eltern retten.
+f|Mein Nachbar Totoro|1988|Animation,Familie,Fantasy|8.1||Zwei Schwestern freunden sich mit Waldgeistern an.
+f|Der Junge und der Reiher|2023|Animation,Fantasy|7.4||Ein trauernder Junge folgt einem sprechenden Reiher in eine fremde Welt.
+f|Your Name.|2016|Animation,Romantik,Fantasy|8.4||Ein Junge aus Tokio und ein Mädchen vom Land tauschen im Schlaf die Körper.
+f|Shrek|2001|Animation,Komödie,Familie|7.9||Ein Oger soll eine Prinzessin retten, um seinen Sumpf zurückzubekommen.
+f|Der wilde Roboter|2024|Animation,Familie,Sci-Fi|8.2||Ein gestrandeter Roboter zieht auf einer Insel ein Gänseküken groß.
+f|Flow|2024|Animation,Abenteuer|7.9||Eine Katze übersteht mit anderen Tieren eine gewaltige Flut.
+f|Paddington 2|2017|Familie,Komödie|7.8||Paddington will ein Geschenk für seine Tante kaufen und landet im Gefängnis.
+f|Kill Bill: Vol. 1|2003|Action,Krimi|8.2||Eine Braut erwacht aus dem Koma und nimmt blutige Rache.
+f|No Country for Old Men|2007|Krimi,Thriller|8.2||Ein Jäger findet Drogengeld und wird von einem eiskalten Killer verfolgt.
+f|Departed – Unter Feinden|2006|Krimi,Thriller,Drama|8.5||Ein Polizist und ein Mafia-Maulwurf versuchen, sich gegenseitig zu enttarnen.
+f|Prestige – Die Meister der Magie|2006|Mystery,Drama,Thriller|8.5||Zwei Zauberer liefern sich ein gefährliches Duell um den besten Trick.
+f|Memento|2000|Mystery,Thriller|8.4||Ein Mann ohne Kurzzeitgedächtnis sucht den Mörder seiner Frau.
+f|Zodiac|2007|Krimi,Thriller,Mystery|7.7||Ermittler und ein Karikaturist jagen jahrelang den Zodiac-Killer.
+f|Nightcrawler|2014|Thriller,Krimi|7.8||Ein skrupelloser Mann filmt nachts Unfälle und Verbrechen für das Fernsehen.
+f|Sicario|2015|Thriller,Krimi,Action|7.6||Eine FBI-Agentin gerät in den Krieg gegen mexikanische Drogenkartelle.
+f|Der schwarze Diamant|2019|Thriller,Krimi|7.4||Ein spielsüchtiger Juwelier setzt alles auf eine riskante Wette.
+f|Killers of the Flower Moon|2023|Krimi,Drama,Historie|7.6|A|Eine Mordserie an den Osage in den 1920ern.
+f|Napoleon|2023|Historie,Krieg|6.4|A|Aufstieg und Fall des französischen Kaisers.
+f|F1|2025|Action,Drama|7.7|A|Ein Ex-Formel-1-Fahrer kehrt zurück, um einem Außenseiter-Team zu helfen.
+f|CODA|2021|Drama,Musik,Komödie|8.0|A|Die einzige hörende Tochter einer gehörlosen Familie entdeckt ihre Liebe zum Singen.
+f|Greyhound|2020|Krieg,Action|7.0|A|Ein Kapitän führt einen Geleitzug durch U-Boot-verseuchte Gewässer.
+f|Wolfs|2024|Komödie,Krimi|6.4|A|Zwei Ausputzer werden für denselben Job gebucht.
+f|The Banshees of Inisherin|2022|Drama,Komödie|7.7||Ein Mann auf einer irischen Insel wird plötzlich von seinem besten Freund ignoriert.
+f|Konklave|2024|Thriller,Drama|7.4||Bei der Papstwahl stößt ein Kardinal auf brisante Geheimnisse.
+f|The Holdovers|2023|Komödie,Drama|7.9||Ein mürrischer Lehrer muss über Weihnachten auf zurückgebliebene Schüler aufpassen.
+f|Perfect Days|2023|Drama|7.9||Ein Toilettenreiniger in Tokio findet Glück in kleinen Routinen.
+f|Anatomie eines Falls|2023|Drama,Krimi,Thriller|7.7||Eine Schriftstellerin wird verdächtigt, ihren Mann getötet zu haben.
+f|Das Lehrerzimmer|2023|Drama,Thriller|7.4||Eine junge Lehrerin gerät nach einer Diebstahlserie zwischen alle Fronten.
+f|The Social Network|2010|Drama|7.8||Wie Mark Zuckerberg Facebook gründete und dabei Freunde verlor.
+f|The Big Short|2015|Drama,Komödie|7.8||Einige Außenseiter sehen die Finanzkrise 2008 kommen und wetten dagegen.
+f|Catch Me If You Can|2002|Krimi,Drama|8.1||Ein junger Hochstapler wird von einem hartnäckigen FBI-Agenten gejagt.
+f|Ocean's Eleven|2001|Krimi,Komödie|7.7||Danny Ocean plant mit zehn Komplizen einen Coup in drei Casinos.
+f|Die Truman Show|1998|Komödie,Drama,Sci-Fi|8.2||Ein Mann merkt, dass sein ganzes Leben eine Fernsehshow ist.
+f|Little Miss Sunshine|2006|Komödie,Drama|7.8||Eine chaotische Familie fährt im VW-Bus zum Schönheitswettbewerb der Tochter.
+s|Breaking Bad|2008|Krimi,Drama,Thriller|9.5||Ein krebskranker Chemielehrer wird zum Drogenkoch.
+s|Better Call Saul|2015|Krimi,Drama|9.0||Der kleine Anwalt Jimmy McGill wird zum zwielichtigen Saul Goodman.
+s|Stranger Things|2016|Sci-Fi,Horror,Drama|8.7|N|Kinder einer Kleinstadt stoßen auf geheime Experimente und eine Parallelwelt.
+s|Dark|2017|Sci-Fi,Mystery,Thriller|8.7|N|In Winden verschwinden Kinder, und vier Familien verstricken sich in Zeitreisen.
+s|Haus des Geldes|2017|Krimi,Thriller,Action|8.2|N|Ein Mastermind plant mit acht Dieben den größten Raub der spanischen Geschichte.
+s|The Crown|2016|Drama,Historie|8.6|N|Die Regentschaft von Queen Elizabeth II. von Anfang an.
+s|Wednesday|2022|Komödie,Fantasy,Mystery|8.0|N|Wednesday Addams ermittelt an der Nevermore Academy in einer Mordserie.
+s|Squid Game|2021|Thriller,Drama,Action|8.0|N|Verschuldete Menschen spielen tödliche Kinderspiele um ein riesiges Preisgeld.
+s|Bridgerton|2020|Romantik,Drama,Historie|7.3|N|Liebe und Skandale in der Londoner High Society der Regency-Zeit.
+s|The Witcher|2019|Fantasy,Action,Abenteuer|8.0|N|Der Monsterjäger Geralt sucht seinen Platz in einer zerrissenen Welt.
+s|Arcane|2021|Animation,Action,Fantasy|9.0|N|Zwei Schwestern stehen auf verschiedenen Seiten eines Konflikts zwischen zwei Städten.
+s|Adolescence|2025|Krimi,Drama|8.1|N|Ein 13-Jähriger wird wegen Mordes an einer Mitschülerin verhaftet.
+s|Rentierbaby|2024|Drama,Thriller|7.6|N|Ein Comedian wird von einer Frau gestalkt, der er einmal einen Tee spendiert hat.
+s|Beef|2023|Komödie,Drama,Thriller|8.0|N|Ein Streit im Straßenverkehr eskaliert zu einer zerstörerischen Fehde.
+s|Ozark|2017|Krimi,Drama,Thriller|8.5|N|Ein Finanzberater muss in den Ozarks Geld für ein Drogenkartell waschen.
+s|Mindhunter|2017|Krimi,Drama,Thriller|8.6|N|FBI-Agenten befragen Serienmörder, um deren Denken zu verstehen.
+s|Das Damengambit|2020|Drama|8.5|N|Ein Waisenmädchen wird zum Schachgenie und kämpft mit ihren Dämonen.
+s|Narcos|2015|Krimi,Drama,Historie|8.8|N|Aufstieg und Fall des Drogenbarons Pablo Escobar.
+s|Black Mirror|2011|Sci-Fi,Thriller,Drama|8.7|N|Einzelgeschichten über die dunklen Seiten moderner Technik.
+s|Sex Education|2019|Komödie,Drama|8.3|N|Ein Teenager startet mit einer Mitschülerin eine Sexberatung an der Schule.
+s|One Piece|2023|Abenteuer,Action,Fantasy|8.3|N|Monkey D. Luffy segelt los, um König der Piraten zu werden.
+s|Lupin|2021|Krimi,Thriller|7.5|N|Ein Meisterdieb will den Tod seines Vaters rächen.
+s|Emily in Paris|2020|Komödie,Romantik|6.8|N|Eine Marketing-Managerin aus Chicago beginnt ein neues Leben in Paris.
+s|Kleo|2022|Thriller,Action,Komödie|7.5|N|Eine Ex-Stasi-Killerin sinnt nach dem Mauerfall auf Rache.
+s|How to Sell Drugs Online (Fast)|2019|Komödie,Krimi|7.8|N|Ein Schüler baut aus seinem Kinderzimmer einen Online-Drogenhandel auf.
+s|You – Du wirst mich lieben|2018|Thriller,Krimi,Romantik|7.7|N|Ein Buchhändler wird zum obsessiven Stalker der Frauen, in die er sich verliebt.
+s|Love, Death & Robots|2019|Animation,Sci-Fi,Horror|8.4|N|Animierte Kurzgeschichten über Liebe, Tod und Maschinen.
+s|BoJack Horseman|2014|Animation,Komödie,Drama|8.8|N|Ein abgehalfterter Sitcom-Star, der ein Pferd ist, sucht nach Sinn.
+s|3 Body Problem|2024|Sci-Fi,Mystery,Drama|7.5|N|Eine Entscheidung aus den 1960ern ruft eine außerirdische Bedrohung auf den Plan.
+s|The Gentlemen|2024|Krimi,Komödie,Action|8.0|N|Ein junger Adliger erbt ein Anwesen, auf dem ein Cannabis-Imperium betrieben wird.
+s|Ripley|2024|Krimi,Drama,Thriller|8.1|N|Ein Hochstapler wird nach Italien geschickt und beginnt ein gefährliches Spiel.
+s|Nobody Wants This|2024|Komödie,Romantik|7.8|N|Eine Sex-Podcasterin verliebt sich in einen frisch getrennten Rabbiner.
+s|Ginny & Georgia|2021|Komödie,Drama|7.5|N|Eine junge Mutter mit dunkler Vergangenheit zieht mit ihren Kindern in eine Kleinstadt.
+s|Outer Banks|2020|Abenteuer,Drama|7.5|N|Teenager auf den Outer Banks suchen nach einem legendären Schatz.
+s|Heartstopper|2022|Romantik,Drama|8.6|N|Zwei Jungen an einer britischen Schule werden Freunde und verlieben sich.
+s|Cobra Kai|2018|Action,Komödie,Drama|8.5|N|Die Karate-Kid-Rivalität lebt Jahrzehnte später wieder auf.
+s|Blue Eye Samurai|2023|Animation,Action|8.7|N|Eine Schwertkämpferin sinnt im Japan der Edo-Zeit auf Rache.
+s|Unser Planet|2019|Doku|9.3|N|Naturdoku über die Vielfalt des Lebens und seine Bedrohung.
+s|Formel 1: Drive to Survive|2019|Doku|8.5|N|Hinter den Kulissen der Formel 1.
+s|Making a Murderer|2015|Doku,Krimi|8.6|N|Ein Mann wird nach 18 Jahren entlastet und kurz darauf wegen Mordes angeklagt.
+s|The Last Dance|2020|Doku|9.1|N|Michael Jordan und die Chicago Bulls der 90er.
+s|Love Is Blind|2020|Reality,Romantik|6.0|N|Singles verloben sich, bevor sie sich zum ersten Mal sehen.
+s|Queer Eye|2018|Reality|8.4|N|Fünf Experten verpassen Menschen ein neues Lebensgefühl.
+s|Chef's Table|2015|Doku|8.5|N|Porträts der besten Köchinnen und Köche der Welt.
+s|The Boys|2019|Action,Komödie,Krimi|8.6|P|Eine Gruppe Normalsterblicher kämpft gegen korrupte Superhelden.
+s|Fallout|2024|Sci-Fi,Abenteuer,Action|8.3|P|Eine Bunkerbewohnerin wagt sich ins postapokalyptische Los Angeles.
+s|Reacher|2022|Action,Krimi|8.0|P|Der Ex-Militärpolizist Jack Reacher deckt eine Verschwörung in einer Kleinstadt auf.
+s|Die Ringe der Macht|2022|Fantasy,Abenteuer|6.9|P|Mittelerde im Zweiten Zeitalter, lange vor dem Herrn der Ringe.
+s|Invincible|2021|Animation,Action,Sci-Fi|8.7|P|Der Sohn des mächtigsten Superhelden der Erde entwickelt eigene Kräfte.
+s|Mr. & Mrs. Smith|2024|Komödie,Action,Romantik|7.2|P|Zwei Fremde werden als Ehepaar-Spione zusammengespannt.
+s|The Marvelous Mrs. Maisel|2017|Komödie,Drama|8.7|P|Eine Hausfrau in den 50ern entdeckt ihr Talent für Stand-up-Comedy.
+s|Fleabag|2016|Komödie,Drama|8.7|P|Eine schlagfertige Londonerin kämpft mit Trauer, Sex und ihrer Familie.
+s|Good Omens|2019|Fantasy,Komödie|8.0|P|Ein Engel und ein Dämon wollen die Apokalypse verhindern.
+s|LOL: Last One Laughing|2021|Komödie,Reality|7.0|P|Comedians dürfen sechs Stunden lang nicht lachen.
+s|The Mandalorian|2019|Sci-Fi,Action,Abenteuer|8.6|D|Ein Kopfgeldjäger beschützt ein mysteriöses Kind.
+s|Andor|2022|Sci-Fi,Action,Drama|8.6|D|Wie ein Dieb zum Rebellen gegen das Imperium wird.
+s|Shōgun|2024|Drama,Historie,Abenteuer|8.6|D|Ein englischer Seefahrer strandet im Japan des Jahres 1600.
+s|The Bear|2022|Drama,Komödie|8.5|D|Ein Spitzenkoch übernimmt das heruntergekommene Sandwich-Restaurant seines Bruders.
+s|Only Murders in the Building|2021|Komödie,Krimi,Mystery|8.1|D|Drei Nachbarn starten einen Podcast über einen Mord in ihrem Haus.
+s|Loki|2021|Fantasy,Sci-Fi,Action|8.2|D|Der Gott des Unheils gerät in die Fänge einer Zeitbehörde.
+s|WandaVision|2021|Sci-Fi,Komödie,Mystery|7.9|D|Wanda und Vision leben in einer Sitcom-Welt, die nicht echt ist.
+s|Daredevil: Born Again|2025|Action,Krimi|8.0|D|Matt Murdock gerät erneut mit Wilson Fisk aneinander, der nun Bürgermeister ist.
+s|Paradise|2025|Thriller,Drama,Mystery|8.0|D|Ein Secret-Service-Agent ermittelt im Mord am US-Präsidenten.
+s|Severance|2022|Sci-Fi,Thriller,Mystery|8.7|A|Angestellte trennen ihre Erinnerungen an Arbeit und Privatleben chirurgisch.
+s|Ted Lasso|2020|Komödie,Drama|8.8|A|Ein amerikanischer Football-Coach soll einen englischen Fußballklub trainieren.
+s|Slow Horses|2022|Thriller,Krimi,Drama|8.2|A|Eine Abteilung ausrangierter MI5-Agenten gerät immer wieder in große Fälle.
+s|The Studio|2025|Komödie|8.0|A|Ein neuer Studioboss will in Hollywood Kunst und Profit vereinen.
+s|Silo|2023|Sci-Fi,Mystery,Drama|8.1|A|Tausende Menschen leben in einem unterirdischen Silo und kennen den Grund nicht.
+s|Foundation|2021|Sci-Fi,Drama|7.6|A|Ein Mathematiker sagt den Untergang des Galaktischen Imperiums voraus.
+s|For All Mankind|2019|Sci-Fi,Drama,Historie|8.1|A|Was wäre, wenn die Sowjetunion zuerst auf dem Mond gelandet wäre?
+s|Shrinking|2023|Komödie,Drama|8.0|A|Ein trauernder Therapeut sagt seinen Klienten plötzlich radikal ehrlich die Meinung.
+s|Bad Sisters|2022|Komödie,Krimi,Drama|7.9|A|Fünf Schwestern wollen den tyrannischen Ehemann einer von ihnen loswerden.
+s|Game of Thrones|2011|Fantasy,Drama,Abenteuer|9.2|H|Adelshäuser kämpfen um den Eisernen Thron, während im Norden eine Gefahr erwacht.
+s|House of the Dragon|2022|Fantasy,Drama,Action|8.3|H|Der Bürgerkrieg der Targaryen, 200 Jahre vor Game of Thrones.
+s|The Last of Us|2023|Drama,Action,Abenteuer|8.6|H|Ein Schmuggler soll ein Mädchen durch ein von Infizierten verwüstetes Amerika bringen.
+s|Succession|2018|Drama,Komödie|8.9|H|Die Kinder eines Medienmoguls kämpfen um die Nachfolge im Familienimperium.
+s|The White Lotus|2021|Komödie,Drama,Mystery|8.0|H|Gäste und Personal eines Luxusresorts – und am Ende des Urlaubs eine Leiche.
+s|Chernobyl|2019|Drama,Historie,Thriller|9.3|H|Die Katastrophe von Tschernobyl und der Kampf, ihre Folgen einzudämmen.
+s|True Detective|2014|Krimi,Drama,Mystery|8.9|H|Zwei Ermittler jagen in Louisiana einen rituellen Serienmörder.
+s|Euphoria|2019|Drama|8.3|H|Eine Gruppe Teenager zwischen Drogen, Liebe und Identitätssuche.
+s|Die Sopranos|1999|Krimi,Drama|9.2|H|Ein Mafiaboss aus New Jersey geht zur Therapie.
+s|The Wire|2002|Krimi,Drama,Thriller|9.3|H|Polizei, Dealer, Politik und Medien in Baltimore.
+s|The Penguin|2024|Krimi,Drama,Action|8.6|H|Oz Cobb kämpft sich in Gothams Unterwelt nach oben.
+s|The Pitt|2025|Drama|8.8|H|Eine einzige 15-Stunden-Schicht in einer Notaufnahme in Pittsburgh.
+s|Hacks|2021|Komödie,Drama|8.2|H|Eine Comedy-Legende aus Las Vegas arbeitet mit einer jungen Autorin zusammen.
+s|Barry|2018|Komödie,Krimi,Drama|8.4|H|Ein Auftragskiller entdeckt seine Leidenschaft fürs Schauspielen.
+s|Westworld|2016|Sci-Fi,Mystery,Drama|8.5|H|In einem Wildwest-Freizeitpark erwachen die Androiden zum Bewusstsein.
+s|Mare of Easttown|2021|Krimi,Drama,Mystery|8.4|H|Eine Detective ermittelt in ihrer Kleinstadt in einem Mordfall.
+s|Big Little Lies|2017|Drama,Krimi,Mystery|8.5|H|Fünf Mütter in Monterey werden in einen Todesfall verwickelt.
+s|Friends|1994|Komödie,Romantik|8.9||Sechs Freunde meistern in New York Liebe, Jobs und das Leben.
+s|The Office|2005|Komödie|9.0||Der Alltag in einem Papiergroßhandel, gefilmt als Mockumentary.
+s|How I Met Your Mother|2005|Komödie,Romantik|8.3||Ted erzählt seinen Kindern, wie er ihre Mutter kennengelernt hat.
+s|Brooklyn Nine-Nine|2013|Komödie,Krimi|8.4||Ein chaotisches Polizeirevier in Brooklyn unter einem strengen Captain.
+s|Modern Family|2009|Komödie,Familie|8.5||Drei verwandte Familien und ihr ganz normaler Wahnsinn.
+s|The Big Bang Theory|2007|Komödie|8.1||Vier Physiker-Nerds und ihre Nachbarin Penny.
+s|Scrubs|2001|Komödie,Drama|8.4||Der junge Arzt J.D. erlebt seine Ausbildung im Sacred Heart Hospital.
+s|Parks and Recreation|2009|Komödie|8.6||Eine übermotivierte Beamtin will ihre Kleinstadt verbessern.
+s|New Girl|2011|Komödie,Romantik|7.8||Jess zieht nach einer Trennung in eine WG mit drei Männern.
+s|Abbott Elementary|2021|Komödie|8.2||Lehrkräfte einer unterfinanzierten Grundschule in Philadelphia.
+s|Grey's Anatomy|2005|Drama,Romantik|7.6||Junge Chirurginnen und Chirurgen zwischen OP und Liebeschaos.
+s|Gilmore Girls|2000|Komödie,Drama|8.2||Eine junge Mutter und ihre Tochter in der Kleinstadt Stars Hollow.
+s|Sherlock|2010|Krimi,Mystery,Drama|9.0||Sherlock Holmes und Dr. Watson ermitteln im heutigen London.
+s|Peaky Blinders|2013|Krimi,Drama|8.8||Die Gangsterfamilie Shelby steigt im Birmingham der 1920er auf.
+s|Downton Abbey|2010|Drama,Historie,Romantik|8.7||Eine Adelsfamilie und ihre Bediensteten im England des frühen 20. Jahrhunderts.
+s|Doctor Who|2005|Sci-Fi,Abenteuer|8.6||Ein außerirdischer Zeitreisender reist mit Begleitern durch Raum und Zeit.
+s|The Walking Dead|2010|Horror,Drama,Thriller|8.1||Überlebende kämpfen nach einer Zombie-Apokalypse um ihr Leben.
+s|Lost|2004|Mystery,Abenteuer,Drama|8.3||Überlebende eines Flugzeugabsturzes stranden auf einer rätselhaften Insel.
+s|Prison Break|2005|Action,Krimi,Thriller|8.3||Ein Ingenieur lässt sich einsperren, um seinen Bruder aus dem Gefängnis zu holen.
+s|Dexter|2006|Krimi,Drama,Thriller|8.6||Ein Forensiker der Polizei ist heimlich ein Serienmörder, der nur Mörder tötet.
+s|Fargo|2014|Krimi,Drama,Thriller|8.9||Schräge Kriminalfälle im verschneiten Mittleren Westen.
+s|Mad Men|2007|Drama|8.7||Ein rätselhaftes Werbegenie im New York der 60er.
+s|Yellowstone|2018|Drama,Western|8.6||Die Familie Dutton kämpft um die größte Ranch der USA.
+s|Twin Peaks|1990|Mystery,Krimi,Drama|8.8||Ein FBI-Agent ermittelt im Mordfall Laura Palmer in einer seltsamen Kleinstadt.
+s|Babylon Berlin|2017|Krimi,Drama,Historie|8.3||Ein Kommissar ermittelt im Berlin der späten 1920er.
+s|Der Tatortreiniger|2011|Komödie|8.6||Ein Hamburger Tatortreiniger philosophiert mit den Menschen am Einsatzort.
+s|Stromberg|2004|Komödie|8.3||Ein selbstverliebter Büroleiter bei einer Versicherung.
+s|Shameless|2011|Komödie,Drama|8.5||Die chaotische Familie Gallagher schlägt sich in Chicago durch.
+s|Vikings|2013|Action,Abenteuer,Historie|8.5||Der Wikinger Ragnar Lothbrok wird zur Legende.
+s|The Handmaid's Tale|2017|Drama,Sci-Fi,Thriller|8.4||In einem totalitären Regime werden fruchtbare Frauen zu Dienerinnen gemacht.
+s|Yellowjackets|2021|Drama,Horror,Mystery|7.8||Ein Mädchenfußballteam strandet nach einem Flugzeugabsturz in der Wildnis.
+s|Attack on Titan|2013|Animation,Action,Fantasy|9.1||Die Menschheit kämpft hinter riesigen Mauern gegen menschenfressende Titanen.
+s|Death Note|2006|Animation,Thriller,Mystery|9.0||Ein Schüler findet ein Notizbuch, das jeden tötet, dessen Name darin steht.
+s|Frieren|2023|Animation,Fantasy,Abenteuer|8.9||Eine langlebige Elfenmagierin reist nach dem Sieg über den Dämonenkönig weiter.
+s|Avatar – Der Herr der Elemente|2005|Animation,Abenteuer,Fantasy|9.3||Der junge Avatar Aang muss die vier Elemente meistern und die Welt retten.
+s|Rick and Morty|2013|Animation,Komödie,Sci-Fi|9.1||Ein zynischer Wissenschaftler reist mit seinem Enkel durchs Multiversum.
+s|Die Simpsons|1989|Animation,Komödie,Familie|8.7||Die gelbe Familie aus Springfield.
+s|Planet Erde II|2016|Doku|9.5||Atemberaubende Aufnahmen von Tieren in den Lebensräumen der Erde.
+s|The Great British Bake Off|2010|Reality|8.6||Hobbybäcker treten in einem Zelt gegeneinander an.

@@ -1,0 +1,1238 @@
+<title>Filmduo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one-screen app — header, card stage, bottom tab bar. Dark cinema theme, single look on purpose. */
+:root{
+  --bg:#110b16; --surface:#1b1323; --surface-2:#251a30; --line:#382a46;
+  --fg:#f7eff9; --muted:#ab9bb6; --accent:#e5398f; --accent-2:#8d48d8;
+  --like:#25c97d; --nope:#ff3d5e; --gold:#f5c451;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --nav-h:64px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select{font:inherit;color:var(--fg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:inherit}
+
+.app{height:100%;display:flex;flex-direction:column;max-width:520px;margin:0 auto;position:relative}
+.top{display:flex;align-items:center;gap:10px;padding-block:10px 6px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:900;font-size:26px;letter-spacing:.02em;text-transform:uppercase;line-height:1}
+.brand svg{flex:none}
+.top .grow{flex:1;min-width:0}
+.partner-chip{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:3px 10px 3px 3px;font-size:12.5px;color:var(--muted);max-width:150px;min-width:0}
+.partner-chip img{width:24px;height:24px;border-radius:50%;flex:none}
+.partner-chip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);position:relative;flex:none}
+.icon-btn .dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+main{flex:1;min-height:0;position:relative}
+.view{position:absolute;inset:0;display:flex;flex-direction:column}
+.view.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding-block:6px calc(var(--nav-h) + 24px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- swipe stage ---------- */
+.stage{flex:1;min-height:0;position:relative;margin:4px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+.card{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:var(--surface);box-shadow:0 18px 40px -18px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06);touch-action:none;user-select:none;-webkit-user-select:none;transform-origin:50% 90%;will-change:transform;transition:transform .25s ease, opacity .25s}
+.card.under{pointer-events:none}
+.card .poster{position:absolute;inset:0}
+.card .info{position:absolute;left:0;right:0;bottom:0;padding:70px 18px 18px 26px;background:linear-gradient(to top,rgba(10,6,14,.97) 0,rgba(10,6,14,.88) 55%,rgba(10,6,14,0) 100%);display:flex;flex-direction:column;gap:8px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.meta .star{color:var(--gold);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.chip.prov{background:rgba(229,57,143,.16);border-color:rgba(229,57,143,.4);color:#ffc2df}
+.desc{font-size:14px;color:#e6dcea;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.castline{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.castline b{color:#e6dcea;font-weight:600}
+.meta .fsk{border:1px solid rgba(255,255,255,.3);border-radius:5px;padding:0 5px;font-size:11.5px;font-weight:700;color:#e6dcea}
+.chip.more-prov{background:none;border-style:dashed;color:var(--muted)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
+.facts dt{color:var(--muted);font-weight:600}
+.facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.provs{display:flex;flex-direction:column;gap:8px}
+.provs .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.provs .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:64px}
+.tagline{margin:0;font-style:italic;color:var(--muted);font-size:14px}
+.credit{font-size:12px;color:var(--muted);margin:0}
+.card .more{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(10,6,14,.55);backdrop-filter:blur(6px);display:grid;place-items:center;border:1px solid rgba(255,255,255,.15);z-index:3}
+.stamp{position:absolute;top:34px;font-family:var(--display);font-weight:900;font-size:42px;letter-spacing:.04em;padding:2px 14px;border:5px solid;border-radius:12px;opacity:0;z-index:2;text-transform:uppercase;pointer-events:none}
+.stamp.like{left:28px;color:var(--like);border-color:var(--like);transform:rotate(-14deg)}
+.stamp.nope{right:28px;color:var(--nope);border-color:var(--nope);transform:rotate(14deg)}
+.partner-liked{position:absolute;top:14px;left:26px;z-index:3;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;background:rgba(37,201,125,.18);border:1px solid rgba(37,201,125,.5);color:#bff3d8;border-radius:99px;padding:4px 10px 4px 6px;backdrop-filter:blur(6px)}
+
+.actions{display:flex;justify-content:center;align-items:center;gap:18px;padding-block:34px calc(var(--nav-h) + 14px)}
+.act{border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);transition:transform .12s}
+.act:active{transform:scale(.92)}
+.act.big{width:66px;height:66px}
+.act.small{width:46px;height:46px;color:var(--muted)}
+.act.nope{color:var(--nope)} .act.like{color:var(--like)}
+.act:disabled{opacity:.35}
+
+.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:24px;border:1.5px dashed var(--line);border-radius:22px}
+.empty h2{font-family:var(--display);font-size:30px;font-weight:800;text-transform:uppercase;margin:0;text-wrap:balance;line-height:1.05}
+.empty p{margin:0;color:var(--muted);max-width:30ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:14px;font-weight:700;background:var(--surface-2);border:1px solid var(--line)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:#fff}
+.btn.ghost{background:none}
+.btn.danger{color:var(--nope);border-color:rgba(255,61,94,.4)}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- poster art ---------- */
+.poster{container-type:size;background:linear-gradient(165deg,var(--c2) 0%,#07050b 100%);overflow:hidden;position:relative}
+.poster .shape{position:absolute;pointer-events:none}
+.poster.c0 .shape{width:95cqw;height:95cqw;border-radius:50%;right:-28cqw;top:-18cqw;background:radial-gradient(circle at 40% 40%,var(--c1),color-mix(in srgb,var(--c1) 30%,transparent) 70%);opacity:.9}
+.poster.c1 .shape{width:160cqw;height:38cqh;left:-30cqw;top:18cqh;transform:rotate(-24deg);background:linear-gradient(90deg,transparent,var(--c1) 30%,color-mix(in srgb,var(--c1) 60%,#fff) 50%,var(--c1) 70%,transparent);opacity:.8}
+.poster.c2 .shape{width:170cqw;height:170cqw;border-radius:50%;left:-35cqw;top:-55cqw;background:repeating-radial-gradient(circle,var(--c1) 0 3cqw,transparent 3cqw 8cqw);opacity:.45}
+.poster::before,.poster::after{content:"";position:absolute;top:0;bottom:0;width:4.2cqw;min-width:6px;background:repeating-linear-gradient(to bottom,transparent 0 2.2cqw,rgba(255,255,255,.22) 2.2cqw 4.6cqw,transparent 4.6cqw 6.8cqw);z-index:1}
+.poster::before{left:1.6cqw}
+.poster::after{right:1.6cqw}
+.poster .ptitle{position:absolute;left:9cqw;right:9cqw;top:10cqh;font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.9;font-size:var(--ts,15cqw);letter-spacing:.01em;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.45);z-index:1;overflow-wrap:anywhere;text-wrap:balance}
+.poster .pyear{position:absolute;left:9cqw;top:4cqh;font-family:var(--display);font-weight:800;font-size:6cqw;letter-spacing:.18em;color:rgba(255,255,255,.75);z-index:1}
+.poster .ptype{position:absolute;right:9cqw;top:4cqh;font-weight:700;font-size:4.2cqw;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);z-index:1}
+.poster.mini .pyear,.poster.mini .ptype{display:none}
+.poster.mini .ptitle{top:auto;bottom:8cqh;left:12cqw;right:12cqw;font-size:var(--tsm,20cqw)}
+.poster.mini::before,.poster.mini::after{width:7cqw}
+
+/* ---------- lists ---------- */
+h1.page{font-family:var(--display);font-weight:900;font-size:34px;text-transform:uppercase;margin:6px 0 2px;line-height:1}
+.sub{color:var(--muted);margin:0 0 14px;font-size:14px}
+.sec-label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.list{display:flex;flex-direction:column;gap:10px}
+.item{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px;text-align:left;width:100%}
+.item .poster{width:58px;height:84px;border-radius:10px;flex:none}
+.item .txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.item .t{font-weight:700;font-size:15.5px;line-height:1.25;overflow-wrap:anywhere}
+.item .m{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.item.seen{opacity:.6}
+.toggle{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);color:var(--muted)}
+.toggle.on{color:var(--like);border-color:rgba(37,201,125,.5);background:rgba(37,201,125,.1)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel h3{margin:0;font-size:16px}
+.panel p{margin:0;color:var(--muted);font-size:14px}
+.code{font-family:var(--display);font-weight:900;font-size:46px;letter-spacing:.18em;line-height:1;user-select:all;-webkit-user-select:all}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12.5px;font-weight:600;color:var(--muted)}
+.input{width:100%;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:16px}
+.input.code-in{text-transform:uppercase;letter-spacing:.2em;font-weight:700}
+.people{display:flex;gap:16px;flex-wrap:wrap}
+.person{display:flex;align-items:center;gap:8px;font-weight:600;min-width:0}
+.person img{width:34px;height:34px;border-radius:50%;flex:none}
+.person .wait{width:34px;height:34px;border-radius:50%;border:1.5px dashed var(--muted);flex:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--bg);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-family:var(--display);font-size:28px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:11.5px;color:var(--muted)}
+.steps{margin:0;padding-left:20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:4px}
+.steps b{color:var(--fg)}
+.note{font-size:13px;color:var(--muted);background:var(--bg);border-radius:12px;padding:10px 12px}
+.err{color:var(--nope);font-size:13.5px;font-weight:600}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:linear-gradient(to top,var(--bg) 70%,rgba(17,11,22,0))}
+.nav-in{max-width:488px;margin:0 auto;height:var(--nav-h);display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border:1px solid var(--line);border-radius:20px;margin-bottom:10px}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11.5px;font-weight:600;color:var(--muted);position:relative}
+.tab[aria-selected="true"]{color:var(--fg)}
+.tab[aria-selected="true"] svg{color:var(--accent)}
+.badge{position:absolute;top:8px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--like);color:#06140c;font-size:11px;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+
+/* ---------- sheets / overlays ---------- */
+.backdrop{position:fixed;inset:0;background:rgba(5,2,8,.66);z-index:40;opacity:0;transition:opacity .2s}
+.backdrop.open{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:88%;overflow-y:auto;background:var(--surface);border-radius:24px 24px 0 0;border-top:1px solid var(--line);padding-block:10px calc(24px + env(safe-area-inset-bottom,0px));padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.sheet.open{transform:none}
+.sheet-in{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.sheet-in{position:relative}
+.sheet-x{position:absolute;top:0;right:0;width:36px;height:36px}
+.sheet h2{padding-right:44px}
+.grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 4px}
+.sheet h2{font-family:var(--display);font-weight:900;font-size:32px;text-transform:uppercase;margin:0;line-height:1;text-wrap:balance}
+.detail-top{display:flex;gap:14px;align-items:flex-start}
+.detail-top .poster{width:110px;height:160px;border-radius:12px;flex:none}
+.detail-top .txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.links a{text-decoration:none}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--bg);border-radius:12px;padding:4px;gap:4px}
+.seg button{padding:9px;border-radius:9px;font-weight:600;font-size:14px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface-2);color:var(--fg)}
+.pick{display:flex;flex-wrap:wrap;gap:8px}
+.pick button{padding:7px 12px;border-radius:99px;border:1px solid var(--line);font-size:13.5px;font-weight:600;color:var(--muted)}
+.pick button[aria-pressed="true"]{background:rgba(229,57,143,.18);border-color:var(--accent);color:var(--fg)}
+.range-row{display:flex;align-items:center;gap:12px}
+.range-row input[type=range]{flex:1;accent-color:var(--accent)}
+.range-row output{font-weight:700;min-width:44px;text-align:right;font-variant-numeric:tabular-nums}
+.years{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.years span{color:var(--muted)}
+select.input{appearance:none}
+
+.match{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 35%,rgba(229,57,143,.55),rgba(17,11,22,.97) 65%)}
+.match h2{font-family:var(--display);font-weight:900;font-size:72px;text-transform:uppercase;margin:0;line-height:.9;background:linear-gradient(135deg,#fff,#ffc2df);-webkit-background-clip:text;background-clip:text;color:transparent}
+.match p{margin:0;color:#f0dff2;max-width:28ch}
+.match .poster{width:170px;height:246px;border-radius:16px;box-shadow:0 20px 50px -10px rgba(0,0,0,.7);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.6) rotate(-8deg)}to{transform:none}}
+
+.toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 26px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:70;background:var(--fg);color:var(--bg);font-weight:700;font-size:14px;padding:10px 16px;border-radius:12px;max-width:calc(100% - 32px);text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.banner{margin:0 max(16px,env(safe-area-inset-right,0px)) 6px max(16px,env(safe-area-inset-left,0px));font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+.banner button{color:var(--accent);font-weight:700;flex:none}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand" aria-label="Filmduo">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="2" y="5" width="15" height="21" rx="3" fill="#8d48d8" transform="rotate(-8 9 15)"/><rect x="12" y="4" width="15" height="21" rx="3" fill="#e5398f" transform="rotate(7 19 14)"/><path d="M19.4 17.6c-2.6-1.7-4-3-4-4.6 0-1.1.9-2 2-2 .8 0 1.5.4 2 1.1.5-.7 1.2-1.1 2-1.1 1.1 0 2 .9 2 2 0 1.6-1.4 2.9-4 4.6z" fill="#fff"/></svg>
+      Filmduo
+    </div>
+    <div class="grow"></div>
+    <div class="partner-chip" id="partnerChip" hidden></div>
+    <button class="icon-btn" id="filterBtn" aria-label="Filter">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+      <span class="dot" id="filterDot" hidden></span>
+    </button>
+  </header>
+
+  <main>
+    <section class="view" id="view-swipe">
+      <div class="banner" id="banner" hidden></div>
+      <div class="stage" id="stage"></div>
+      <div class="actions">
+        <button class="act small" id="undoBtn" aria-label="Rückgängig" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+        <button class="act big nope" id="nopeBtn" aria-label="Nicht ansehen"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <button class="act big like" id="likeBtn" aria-label="Will ich sehen"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5c-5.6-3.7-9-6.9-9-10.6C3 7.2 5.1 5 7.7 5c1.8 0 3.3.9 4.3 2.4C13 5.9 14.5 5 16.3 5 18.9 5 21 7.2 21 9.9c0 3.7-3.4 6.9-9 10.6z"/></svg></button>
+        <button class="act small" id="infoBtn" aria-label="Details"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></button>
+      </div>
+    </section>
+    <section class="view scroll" id="view-matches" hidden></section>
+    <section class="view scroll" id="view-duo" hidden></section>
+  </main>
+
+  <nav class="nav" aria-label="Bereiche">
+    <div class="nav-in" role="tablist">
+      <button class="tab" role="tab" data-tab="swipe" aria-selected="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="12" height="17" rx="2.5" transform="rotate(-6 10 11)"/><rect x="9" y="4" width="11" height="16" rx="2.5" fill="var(--surface)" transform="rotate(6 14 12)"/></svg>Swipen</button>
+      <button class="tab" role="tab" data-tab="matches" aria-selected="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20c-5.4-3.6-8.5-6.6-8.5-10.1C3.5 7.4 5.4 5.5 7.9 5.5c1.7 0 3.1.9 4.1 2.2 1-1.3 2.4-2.2 4.1-2.2 2.5 0 4.4 1.9 4.4 4.4 0 3.5-3.1 6.5-8.5 10.1z"/></svg>Matches<span class="badge" id="matchBadge" hidden></span></button>
+      <button class="tab" role="tab" data-tab="duo" aria-selected="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="9" r="3.2"/><circle cx="16" cy="9" r="3.2"/><path d="M2.5 19c.6-3 3-4.8 6-4.8s5.4 1.8 6 4.8M13 14.4c.9-.3 1.9-.4 3-.2 2.7.4 4.6 2.1 5.1 4.8"/></svg>Duo</button>
+    </div>
+  </nav>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden><div class="sheet-in" id="sheetIn"></div></div>
+<div class="match" id="matchOverlay" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const CATALOG_RAW = `f|Inception|2010|Sci-Fi,Action,Thriller|8.8||Ein Dieb, der Geheimnisse aus Träumen stiehlt, soll zum ersten Mal eine Idee einpflanzen.
+f|Interstellar|2014|Sci-Fi,Drama,Abenteuer|8.7||Eine Raumfahrtcrew sucht durch ein Wurmloch nach einer neuen Heimat für die sterbende Menschheit.
+f|The Dark Knight|2008|Action,Krimi,Drama|9.0||Batman muss sich dem Joker stellen, der Gotham ins Chaos stürzen will.
+f|Parasite|2019|Thriller,Drama,Komödie|8.5||Eine arme Familie schleicht sich Schritt für Schritt in den Haushalt einer reichen Familie ein.
+f|Pulp Fiction|1994|Krimi,Drama|8.9||Mehrere Geschichten aus der Unterwelt von Los Angeles kreuzen sich auf überraschende Weise.
+f|Die Verurteilten|1994|Drama|9.3||Ein unschuldig verurteilter Banker findet im Gefängnis Freundschaft und Hoffnung.
+f|Der Pate|1972|Krimi,Drama|9.2||Die Mafiafamilie Corleone und ihr widerwilliger Erbe Michael.
+f|Forrest Gump|1994|Drama,Romantik|8.8||Ein einfacher Mann erlebt zufällig die großen Momente der US-Geschichte mit.
+f|Fight Club|1999|Drama,Thriller|8.8||Ein schlafloser Angestellter gründet mit einem charismatischen Fremden einen Untergrund-Kampfclub.
+f|Matrix|1999|Sci-Fi,Action|8.7||Ein Hacker erfährt, dass die Welt eine Simulation ist, und schließt sich dem Widerstand an.
+f|Der Herr der Ringe: Die Gefährten|2001|Fantasy,Abenteuer|8.9||Ein Hobbit bricht auf, um einen gefährlichen Ring zu zerstören.
+f|Der Herr der Ringe: Die Rückkehr des Königs|2003|Fantasy,Abenteuer|9.0||Das große Finale im Kampf um Mittelerde.
+f|Gladiator|2000|Action,Drama,Historie|8.5||Ein verratener römischer General kämpft sich als Gladiator zurück.
+f|Titanic|1997|Romantik,Drama|7.9||Eine verbotene Liebe an Bord des berühmten Schiffs auf seiner einzigen Fahrt.
+f|Avatar|2009|Sci-Fi,Abenteuer,Action|7.9||Ein querschnittsgelähmter Marine lebt auf dem Mond Pandora unter den Na'vi.
+f|Avatar: The Way of Water|2022|Sci-Fi,Abenteuer|7.5||Jake Sully und seine Familie fliehen zu den Meeresvölkern Pandoras.
+f|Dune|2021|Sci-Fi,Abenteuer|8.0||Paul Atreides gerät auf dem Wüstenplaneten Arrakis zwischen mächtige Fronten.
+f|Dune: Part Two|2024|Sci-Fi,Abenteuer,Action|8.5||Paul verbündet sich mit den Fremen und nimmt Rache an den Harkonnen.
+f|Oppenheimer|2023|Drama,Historie|8.3||Das Leben des Physikers, der die Atombombe mitentwickelte.
+f|Barbie|2023|Komödie,Fantasy|6.8||Barbie verlässt Barbieland und entdeckt die echte Welt.
+f|Everything Everywhere All at Once|2022|Sci-Fi,Komödie,Action|7.8||Eine Waschsalonbesitzerin springt durch Paralleluniversen, um die Welt zu retten.
+f|Joker|2019|Drama,Thriller,Krimi|8.4||Ein gescheiterter Komiker wird in Gotham zum gefürchteten Joker.
+f|La La Land|2016|Romantik,Musik,Drama|8.0||Eine Schauspielerin und ein Jazzpianist verlieben sich in Los Angeles.
+f|Whiplash|2014|Drama,Musik|8.5||Ein junger Schlagzeuger gerät an einen gnadenlosen Lehrer.
+f|The Wolf of Wall Street|2013|Komödie,Krimi,Drama|8.2||Aufstieg und Fall des exzessiven Börsenmaklers Jordan Belfort.
+f|Django Unchained|2012|Western,Drama|8.5||Ein befreiter Sklave und ein Kopfgeldjäger wollen seine Frau retten.
+f|Inglourious Basterds|2009|Krieg,Drama,Abenteuer|8.4||Eine Spezialeinheit plant im besetzten Frankreich ein Attentat auf die Naziführung.
+f|Shutter Island|2010|Thriller,Mystery|8.2||Ein US-Marshal ermittelt in einer Klinik für psychisch kranke Straftäter.
+f|Gone Girl|2014|Thriller,Mystery,Drama|8.1||Am fünften Hochzeitstag verschwindet Amy, und ihr Mann gerät unter Verdacht.
+f|Prisoners|2013|Thriller,Krimi,Drama|8.1||Ein Vater nimmt die Suche nach seiner entführten Tochter selbst in die Hand.
+f|Sieben|1995|Thriller,Krimi|8.6||Zwei Ermittler jagen einen Serienmörder, der nach den sieben Todsünden tötet.
+f|Das Schweigen der Lämmer|1991|Thriller,Krimi|8.6||Eine FBI-Anwärterin sucht Hilfe beim inhaftierten Kannibalen Hannibal Lecter.
+f|Get Out|2017|Horror,Thriller|7.8||Ein junger Mann besucht die Familie seiner Freundin und stößt auf ein grauenvolles Geheimnis.
+f|Hereditary|2018|Horror,Mystery|7.3||Nach dem Tod der Großmutter wird eine Familie von unheimlichen Ereignissen heimgesucht.
+f|A Quiet Place|2018|Horror,Sci-Fi|7.5||Eine Familie lebt in völliger Stille, um Monstern zu entgehen, die nach Geräuschen jagen.
+f|Conjuring – Die Heimsuchung|2013|Horror|7.5||Ein Dämonologen-Ehepaar hilft einer Familie in einem verfluchten Farmhaus.
+f|Es|2017|Horror|7.3||Eine Gruppe Kinder stellt sich einem Clown, der ihre Stadt terrorisiert.
+f|Talk to Me|2023|Horror|7.1||Teenager rufen mit einer einbalsamierten Hand Geister herbei.
+f|Nosferatu|2024|Horror,Fantasy|7.2||Eine junge Frau wird von einem uralten Vampir heimgesucht.
+f|The Substance|2024|Horror,Sci-Fi|7.3||Eine alternde Schauspielerin nimmt ein Mittel, das eine jüngere Version von ihr erschafft.
+f|Shining|1980|Horror,Drama|8.4||Ein Winterhausmeister in einem abgelegenen Hotel verliert den Verstand.
+f|Midsommar|2019|Horror,Drama|7.1||Ein Paar besucht ein Mittsommerfest in Schweden, das zum Albtraum wird.
+f|Scream|1996|Horror,Mystery|7.4||Ein maskierter Killer terrorisiert eine Kleinstadt und ihre Teenager.
+f|Smile|2022|Horror,Mystery|6.5||Eine Psychiaterin wird nach einem verstörenden Vorfall von einem Fluch verfolgt.
+f|Barbarian|2022|Horror,Thriller|7.0||Eine Frau bucht eine Ferienwohnung, die bereits doppelt vermietet ist.
+f|The Menu|2022|Thriller,Komödie,Horror|7.2||Ein exklusives Dinner auf einer Insel nimmt eine verstörende Wendung.
+f|Sinners|2025|Horror,Musik,Drama|7.6||Zwei Zwillingsbrüder eröffnen in den 1930ern einen Club im Süden und bekommen es mit Vampiren zu tun.
+f|Weapons|2025|Horror,Mystery|7.5||Alle Kinder einer Schulklasse verschwinden in derselben Nacht – bis auf eins.
+f|Am Ende der Welt|2023|Thriller,Drama|6.5|N|Ein Familienurlaub wird von einem mysteriösen Zusammenbruch aller Technik überschattet.
+f|Knives Out|2019|Krimi,Komödie,Mystery|7.9||Nach dem Tod eines Krimiautors steht seine ganze Familie unter Verdacht.
+f|Glass Onion|2022|Krimi,Komödie,Mystery|7.1|N|Detektiv Benoit Blanc ermittelt auf der Privatinsel eines Tech-Milliardärs.
+f|Wake Up Dead Man|2025|Krimi,Mystery|7.5|N|Benoit Blanc untersucht einen rätselhaften Todesfall in einer Kleinstadtgemeinde.
+f|Im Westen nichts Neues|2022|Krieg,Drama|7.8|N|Ein junger Soldat erlebt die Schrecken des Ersten Weltkriegs an der Westfront.
+f|The Irishman|2019|Krimi,Drama|7.8|N|Ein Auftragskiller blickt auf sein Leben und seine Verbindung zu Jimmy Hoffa zurück.
+f|Marriage Story|2019|Drama,Romantik|7.9|N|Ein Paar navigiert durch eine schmerzhafte Scheidung zwischen zwei Städten.
+f|Don't Look Up|2021|Komödie,Sci-Fi|7.2|N|Zwei Astronomen versuchen vergeblich, die Welt vor einem Kometen zu warnen.
+f|Bird Box|2018|Horror,Thriller|6.6|N|Eine Mutter flieht mit verbundenen Augen vor einer tödlichen Macht.
+f|Tyler Rake: Extraction|2020|Action,Thriller|6.7|N|Ein Söldner soll den entführten Sohn eines Drogenbarons aus Dhaka befreien.
+f|The Gray Man|2022|Action,Thriller|6.5|N|Ein CIA-Agent wird von seinen eigenen Leuten gejagt.
+f|KPop Demon Hunters|2025|Animation,Musik,Fantasy|8.0|N|Eine K-Pop-Girlgroup jagt nachts heimlich Dämonen.
+f|Klaus|2019|Animation,Familie,Komödie|8.2|N|Ein fauler Postbote freundet sich mit einem zurückgezogenen Spielzeugmacher an.
+f|Guillermo del Toros Pinocchio|2022|Animation,Fantasy,Familie|7.6|N|Eine düstere Neuerzählung des Märchens im faschistischen Italien.
+f|Roma|2018|Drama|7.7|N|Ein Jahr im Leben einer Haushälterin in Mexiko-Stadt Anfang der 70er.
+f|Enola Holmes|2020|Abenteuer,Krimi,Familie|6.6|N|Sherlocks jüngere Schwester sucht ihre verschwundene Mutter.
+f|Red Notice|2021|Action,Komödie|6.3|N|Ein FBI-Profiler jagt einen Kunstdieb und gerät an eine noch gerissenere Diebin.
+f|Die Schneegesellschaft|2023|Drama,Historie|7.8|N|Die wahre Geschichte des Flugzeugabsturzes in den Anden 1972.
+f|The Power of the Dog|2021|Drama,Western|6.8|N|Ein grausamer Rancher terrorisiert die neue Frau seines Bruders und deren Sohn.
+f|Saltburn|2023|Thriller,Drama|7.0|P|Ein Student verbringt den Sommer auf dem Landsitz eines reichen Kommilitonen.
+f|Air|2023|Drama|7.4|P|Wie Nike den jungen Michael Jordan unter Vertrag nahm.
+f|The Tomorrow War|2021|Sci-Fi,Action|6.5|P|Soldaten aus der Gegenwart sollen in der Zukunft gegen Aliens kämpfen.
+f|Road House|2024|Action|6.2|P|Ein Ex-UFC-Kämpfer wird Türsteher in einer rauen Bar auf den Florida Keys.
+f|Red One|2024|Action,Komödie,Familie|6.7|P|Der Weihnachtsmann wird entführt, und ein Agent muss ihn retten.
+f|Sound of Metal|2019|Drama,Musik|7.7|P|Ein Schlagzeuger verliert sein Gehör und muss sein Leben neu ordnen.
+f|Hamilton|2020|Musik,Historie|8.3|D|Das gefeierte Broadway-Musical über den Gründervater Alexander Hamilton.
+f|Soul|2020|Animation,Familie,Komödie|8.0|D|Ein Musiklehrer landet kurz vor seinem großen Auftritt im Jenseits.
+f|Luca|2021|Animation,Familie|7.4|D|Ein junges Seemonster erlebt einen Sommer an der italienischen Riviera.
+f|Rot|2022|Animation,Familie,Komödie|7.0|D|Eine 13-Jährige verwandelt sich in einen roten Panda, wenn sie sich aufregt.
+f|Encanto|2021|Animation,Familie,Musik|7.2|D|Das einzige Mitglied einer magischen Familie ohne Zauberkraft muss sie retten.
+f|Coco|2017|Animation,Familie,Musik|8.4|D|Ein Junge reist ins Reich der Toten, um seinen Ururgroßvater zu finden.
+f|Oben|2009|Animation,Abenteuer,Familie|8.3|D|Ein alter Witwer fliegt mit seinem Haus und einem Pfadfinder nach Südamerika.
+f|WALL·E|2008|Animation,Sci-Fi,Familie|8.4|D|Ein einsamer Aufräumroboter verliebt sich und folgt ihr ins All.
+f|Alles steht Kopf 2|2024|Animation,Familie,Komödie|7.6|D|Rileys Gefühle bekommen neue Mitbewohner, allen voran die Zweifel.
+f|Zoomania|2016|Animation,Familie,Krimi|8.0|D|Eine Hasen-Polizistin und ein Fuchs lösen einen Fall in einer Stadt voller Tiere.
+f|Die Eiskönigin|2013|Animation,Familie,Musik|7.4|D|Anna sucht ihre Schwester Elsa, die das Königreich in ewigen Winter versetzt hat.
+f|Ratatouille|2007|Animation,Familie,Komödie|8.1|D|Eine Ratte träumt davon, Koch in Paris zu werden.
+f|Findet Nemo|2003|Animation,Familie,Abenteuer|8.2|D|Ein Clownfisch durchquert den Ozean, um seinen Sohn zu finden.
+f|Der König der Löwen|1994|Animation,Familie,Drama|8.5|D|Der junge Löwe Simba muss sein Schicksal als König annehmen.
+f|Toy Story|1995|Animation,Familie,Komödie|8.3|D|Cowboy Woody bekommt Konkurrenz durch den Astronauten Buzz Lightyear.
+f|Avengers: Endgame|2019|Action,Sci-Fi,Abenteuer|8.4|D|Die verbliebenen Avengers wollen Thanos' Fingerschnipp rückgängig machen.
+f|Guardians of the Galaxy|2014|Action,Sci-Fi,Komödie|8.0|D|Eine Truppe von Außenseitern muss gemeinsam die Galaxis retten.
+f|Black Panther|2018|Action,Sci-Fi|7.3|D|T'Challa kehrt nach Wakanda zurück, um König zu werden.
+f|Deadpool & Wolverine|2024|Action,Komödie|7.6|D|Der respektlose Söldner zieht einen widerwilligen Wolverine in ein Multiversum-Abenteuer.
+f|Star Wars: Eine neue Hoffnung|1977|Sci-Fi,Abenteuer|8.6|D|Luke Skywalker schließt sich der Rebellion gegen das Imperium an.
+f|Star Wars: Das Imperium schlägt zurück|1980|Sci-Fi,Abenteuer|8.7|D|Die Rebellen fliehen vor dem Imperium, und Luke lernt bei Yoda.
+f|Spider-Man: Across the Spider-Verse|2023|Animation,Action,Abenteuer|8.5||Miles Morales trifft auf eine ganze Gesellschaft von Spider-Leuten.
+f|Spider-Man: No Way Home|2021|Action,Abenteuer|8.2||Peter Parker bittet Doctor Strange um Hilfe, und das Multiversum bricht auf.
+f|Top Gun: Maverick|2022|Action,Drama|8.2||Maverick bildet junge Piloten für eine fast unmögliche Mission aus.
+f|Mission: Impossible – Fallout|2018|Action,Thriller|7.7||Ethan Hunt jagt gestohlenes Plutonium und wird selbst gejagt.
+f|Mission: Impossible – The Final Reckoning|2025|Action,Thriller|7.2||Ethan Hunt kämpft gegen eine abtrünnige künstliche Intelligenz.
+f|John Wick|2014|Action,Thriller|7.4||Ein Auftragskiller im Ruhestand rächt sich für den Tod seines Hundes.
+f|Mad Max: Fury Road|2015|Action,Sci-Fi,Abenteuer|8.1||Max und Furiosa fliehen in einer endlosen Verfolgungsjagd durch die Wüste.
+f|Furiosa|2024|Action,Abenteuer|7.5||Die Vorgeschichte der jungen Furiosa im Ödland.
+f|Baby Driver|2017|Action,Krimi,Musik|7.5||Ein junger Fluchtwagenfahrer will aus der Unterwelt aussteigen.
+f|Drive|2011|Krimi,Drama,Thriller|7.8||Ein schweigsamer Stuntfahrer gerät nach einem Überfall in Lebensgefahr.
+f|Heat|1995|Krimi,Action,Thriller|8.3||Ein Polizist und ein Profi-Dieb liefern sich ein Duell in Los Angeles.
+f|Superman|2025|Action,Sci-Fi|7.1||Clark Kent sucht seinen Platz zwischen kryptonischer Herkunft und menschlicher Familie.
+f|Gladiator II|2024|Action,Drama,Historie|6.0||Lucius wird versklavt und muss im Kolosseum kämpfen.
+f|Twisters|2024|Action,Abenteuer|6.5||Sturmjäger wollen eine verheerende Tornadoserie stoppen.
+f|Godzilla Minus One|2023|Sci-Fi,Action,Drama|7.7||Im zerstörten Nachkriegsjapan taucht Godzilla auf.
+f|Civil War|2024|Action,Thriller,Krieg|7.0||Journalisten reisen durch ein vom Bürgerkrieg zerrissenes Amerika.
+f|One Battle After Another|2025|Action,Krimi,Drama|7.8||Ein Ex-Revolutionär muss seine Tochter vor einem alten Feind retten.
+f|Zurück in die Zukunft|1985|Sci-Fi,Abenteuer,Komödie|8.5||Marty McFly reist versehentlich in die 50er und muss seine Eltern verkuppeln.
+f|Jurassic Park|1993|Abenteuer,Sci-Fi|8.2||In einem Freizeitpark mit Dinosauriern geht alles schief.
+f|E.T. – Der Außerirdische|1982|Sci-Fi,Familie|7.9||Ein Junge versteckt einen gestrandeten Außerirdischen.
+f|Der weiße Hai|1975|Thriller,Abenteuer|8.1||Ein Polizeichef jagt einen Hai, der einen Badeort terrorisiert.
+f|Alien|1979|Horror,Sci-Fi|8.5||Die Crew eines Frachtschiffs wird von einer tödlichen Lebensform gejagt.
+f|Terminator 2|1991|Action,Sci-Fi|8.6||Ein umprogrammierter Terminator soll den jungen John Connor beschützen.
+f|Blade Runner 2049|2017|Sci-Fi,Drama,Mystery|8.0||Ein Blade Runner entdeckt ein Geheimnis, das die Gesellschaft erschüttern könnte.
+f|Arrival|2016|Sci-Fi,Drama,Mystery|7.9||Eine Linguistin soll mit Außerirdischen kommunizieren.
+f|Der Marsianer|2015|Sci-Fi,Abenteuer,Drama|8.0||Ein Astronaut muss allein auf dem Mars überleben.
+f|Gravity|2013|Sci-Fi,Thriller|7.7||Zwei Astronauten treiben nach einem Unfall hilflos im All.
+f|Ex Machina|2014|Sci-Fi,Thriller|7.7||Ein Programmierer soll das Bewusstsein eines humanoiden Roboters testen.
+f|Her|2013|Romantik,Sci-Fi,Drama|8.0||Ein einsamer Mann verliebt sich in ein Betriebssystem.
+f|Vergiss mein nicht!|2004|Romantik,Sci-Fi,Drama|8.3||Ein Mann lässt die Erinnerungen an seine Ex-Freundin löschen und bereut es.
+f|Die fabelhafte Welt der Amélie|2001|Komödie,Romantik|8.3||Eine schüchterne Kellnerin in Paris beschließt, das Leben anderer zu verbessern.
+f|Notting Hill|1999|Romantik,Komödie|7.2||Ein Buchhändler verliebt sich in einen Hollywoodstar.
+f|Tatsächlich… Liebe|2003|Romantik,Komödie|7.6||Zehn Liebesgeschichten in London in den Wochen vor Weihnachten.
+f|Crazy Rich|2018|Romantik,Komödie|6.9||Eine New Yorkerin lernt die steinreiche Familie ihres Freundes in Singapur kennen.
+f|Wie ein einziger Tag|2004|Romantik,Drama|7.8||Ein alter Mann liest einer Frau die Geschichte einer großen Sommerliebe vor.
+f|Stolz und Vorurteil|2005|Romantik,Drama|7.8||Elizabeth Bennet und der stolze Mr. Darcy finden trotz Vorurteilen zueinander.
+f|Alles eine Frage der Zeit|2013|Romantik,Komödie,Fantasy|7.8||Ein junger Mann kann durch die Zeit reisen und nutzt das für die Liebe.
+f|Past Lives|2023|Romantik,Drama|7.8||Zwei Kindheitsfreunde aus Seoul treffen sich nach über 20 Jahren wieder.
+f|Wo die Lüge hinfällt|2023|Romantik,Komödie|6.1||Zwei Erzfeinde spielen auf einer Hochzeit in Australien ein Paar.
+f|Challengers|2024|Drama,Romantik|7.1||Ein Tennis-Dreieck aus Liebe und Rivalität über 13 Jahre.
+f|Anora|2024|Drama,Komödie,Romantik|7.5||Eine Stripperin heiratet überstürzt den Sohn eines russischen Oligarchen.
+f|Poor Things|2023|Fantasy,Komödie,Romantik|7.8||Eine wiederbelebte junge Frau entdeckt die Welt auf ihre ganz eigene Art.
+f|Grand Budapest Hotel|2014|Komödie,Abenteuer|8.1||Ein legendärer Concierge und sein Lobby-Boy geraten in einen Erbschaftsstreit.
+f|Superbad|2007|Komödie|7.6||Zwei Schulfreunde wollen vor dem Abschluss noch eine legendäre Party erleben.
+f|Hangover|2009|Komödie|7.7||Nach einem Junggesellenabschied in Las Vegas fehlt der Bräutigam.
+f|Ziemlich beste Freunde|2011|Komödie,Drama|8.5||Ein reicher Querschnittsgelähmter stellt einen ungewöhnlichen Pfleger ein.
+f|Fack ju Göhte|2013|Komödie|6.8||Ein Ex-Häftling wird Aushilfslehrer, um an seine versteckte Beute zu kommen.
+f|Good Bye, Lenin!|2003|Komödie,Drama|7.7||Ein Sohn verheimlicht seiner kranken Mutter den Fall der Mauer.
+f|Das Leben der Anderen|2006|Drama,Thriller|8.4||Ein Stasi-Offizier überwacht einen Schriftsteller und beginnt zu zweifeln.
+f|Lola rennt|1998|Thriller,Krimi|7.6||Lola hat 20 Minuten, um 100.000 Mark für ihren Freund aufzutreiben.
+f|Der Schuh des Manitu|2001|Komödie,Western|6.6||Abahachi und Ranger geraten in eine chaotische Wildwest-Schatzsuche.
+f|Das Boot|1981|Krieg,Drama|8.4||Die Besatzung eines U-Boots im Zweiten Weltkrieg kämpft ums Überleben.
+f|1917|2019|Krieg,Drama|8.2||Zwei Soldaten müssen hinter feindlichen Linien eine lebenswichtige Nachricht überbringen.
+f|Der Soldat James Ryan|1998|Krieg,Drama|8.6||Nach der Landung in der Normandie soll ein Trupp einen einzelnen Soldaten finden.
+f|Dunkirk|2017|Krieg,Historie,Action|7.8||Die dramatische Evakuierung alliierter Soldaten aus Dünkirchen 1940.
+f|Schindlers Liste|1993|Drama,Historie|9.0||Ein Unternehmer rettet über tausend Juden vor dem Holocaust.
+f|Green Book|2018|Drama,Komödie|8.2||Ein Türsteher fährt einen schwarzen Pianisten durch die Südstaaten der 60er.
+f|Bohemian Rhapsody|2018|Musik,Drama|7.9||Der Aufstieg von Queen und Freddie Mercury bis zum Live-Aid-Konzert.
+f|Elvis|2022|Musik,Drama|7.3||Das Leben von Elvis Presley aus Sicht seines Managers.
+f|A Star Is Born|2018|Musik,Romantik,Drama|7.6||Ein Musikstar entdeckt eine junge Sängerin und verliebt sich in sie.
+f|Greatest Showman|2017|Musik,Drama|7.5||P. T. Barnum erfindet das Zirkus-Spektakel.
+f|Wicked|2024|Musik,Fantasy|7.4||Die spätere böse Hexe des Westens und ihre Freundschaft zu Glinda.
+f|Mamma Mia!|2008|Musik,Komödie,Romantik|6.5||Eine Braut lädt drei mögliche Väter zu ihrer Hochzeit auf eine griechische Insel ein.
+f|Harry Potter und der Stein der Weisen|2001|Fantasy,Abenteuer,Familie|7.7||Harry erfährt, dass er ein Zauberer ist, und kommt nach Hogwarts.
+f|Harry Potter und der Gefangene von Askaban|2004|Fantasy,Abenteuer,Familie|7.9||Ein entflohener Häftling soll es auf Harry abgesehen haben.
+f|Fluch der Karibik|2003|Abenteuer,Fantasy,Action|8.1|D|Captain Jack Sparrow hilft, eine entführte Gouverneurstochter zu retten.
+f|Jäger des verlorenen Schatzes|1981|Abenteuer,Action|8.4||Der Archäologe Indiana Jones jagt die Bundeslade.
+f|Chihiros Reise ins Zauberland|2001|Animation,Fantasy,Familie|8.6||Ein Mädchen gerät in eine Geisterwelt und muss ihre Eltern retten.
+f|Mein Nachbar Totoro|1988|Animation,Familie,Fantasy|8.1||Zwei Schwestern freunden sich mit Waldgeistern an.
+f|Der Junge und der Reiher|2023|Animation,Fantasy|7.4||Ein trauernder Junge folgt einem sprechenden Reiher in eine fremde Welt.
+f|Your Name.|2016|Animation,Romantik,Fantasy|8.4||Ein Junge aus Tokio und ein Mädchen vom Land tauschen im Schlaf die Körper.
+f|Shrek|2001|Animation,Komödie,Familie|7.9||Ein Oger soll eine Prinzessin retten, um seinen Sumpf zurückzubekommen.
+f|Der wilde Roboter|2024|Animation,Familie,Sci-Fi|8.2||Ein gestrandeter Roboter zieht auf einer Insel ein Gänseküken groß.
+f|Flow|2024|Animation,Abenteuer|7.9||Eine Katze übersteht mit anderen Tieren eine gewaltige Flut.
+f|Paddington 2|2017|Familie,Komödie|7.8||Paddington will ein Geschenk für seine Tante kaufen und landet im Gefängnis.
+f|Kill Bill: Vol. 1|2003|Action,Krimi|8.2||Eine Braut erwacht aus dem Koma und nimmt blutige Rache.
+f|No Country for Old Men|2007|Krimi,Thriller|8.2||Ein Jäger findet Drogengeld und wird von einem eiskalten Killer verfolgt.
+f|Departed – Unter Feinden|2006|Krimi,Thriller,Drama|8.5||Ein Polizist und ein Mafia-Maulwurf versuchen, sich gegenseitig zu enttarnen.
+f|Prestige – Die Meister der Magie|2006|Mystery,Drama,Thriller|8.5||Zwei Zauberer liefern sich ein gefährliches Duell um den besten Trick.
+f|Memento|2000|Mystery,Thriller|8.4||Ein Mann ohne Kurzzeitgedächtnis sucht den Mörder seiner Frau.
+f|Zodiac|2007|Krimi,Thriller,Mystery|7.7||Ermittler und ein Karikaturist jagen jahrelang den Zodiac-Killer.
+f|Nightcrawler|2014|Thriller,Krimi|7.8||Ein skrupelloser Mann filmt nachts Unfälle und Verbrechen für das Fernsehen.
+f|Sicario|2015|Thriller,Krimi,Action|7.6||Eine FBI-Agentin gerät in den Krieg gegen mexikanische Drogenkartelle.
+f|Der schwarze Diamant|2019|Thriller,Krimi|7.4||Ein spielsüchtiger Juwelier setzt alles auf eine riskante Wette.
+f|Killers of the Flower Moon|2023|Krimi,Drama,Historie|7.6|A|Eine Mordserie an den Osage in den 1920ern.
+f|Napoleon|2023|Historie,Krieg|6.4|A|Aufstieg und Fall des französischen Kaisers.
+f|F1|2025|Action,Drama|7.7|A|Ein Ex-Formel-1-Fahrer kehrt zurück, um einem Außenseiter-Team zu helfen.
+f|CODA|2021|Drama,Musik,Komödie|8.0|A|Die einzige hörende Tochter einer gehörlosen Familie entdeckt ihre Liebe zum Singen.
+f|Greyhound|2020|Krieg,Action|7.0|A|Ein Kapitän führt einen Geleitzug durch U-Boot-verseuchte Gewässer.
+f|Wolfs|2024|Komödie,Krimi|6.4|A|Zwei Ausputzer werden für denselben Job gebucht.
+f|The Banshees of Inisherin|2022|Drama,Komödie|7.7||Ein Mann auf einer irischen Insel wird plötzlich von seinem besten Freund ignoriert.
+f|Konklave|2024|Thriller,Drama|7.4||Bei der Papstwahl stößt ein Kardinal auf brisante Geheimnisse.
+f|The Holdovers|2023|Komödie,Drama|7.9||Ein mürrischer Lehrer muss über Weihnachten auf zurückgebliebene Schüler aufpassen.
+f|Perfect Days|2023|Drama|7.9||Ein Toilettenreiniger in Tokio findet Glück in kleinen Routinen.
+f|Anatomie eines Falls|2023|Drama,Krimi,Thriller|7.7||Eine Schriftstellerin wird verdächtigt, ihren Mann getötet zu haben.
+f|Das Lehrerzimmer|2023|Drama,Thriller|7.4||Eine junge Lehrerin gerät nach einer Diebstahlserie zwischen alle Fronten.
+f|The Social Network|2010|Drama|7.8||Wie Mark Zuckerberg Facebook gründete und dabei Freunde verlor.
+f|The Big Short|2015|Drama,Komödie|7.8||Einige Außenseiter sehen die Finanzkrise 2008 kommen und wetten dagegen.
+f|Catch Me If You Can|2002|Krimi,Drama|8.1||Ein junger Hochstapler wird von einem hartnäckigen FBI-Agenten gejagt.
+f|Ocean's Eleven|2001|Krimi,Komödie|7.7||Danny Ocean plant mit zehn Komplizen einen Coup in drei Casinos.
+f|Die Truman Show|1998|Komödie,Drama,Sci-Fi|8.2||Ein Mann merkt, dass sein ganzes Leben eine Fernsehshow ist.
+f|Little Miss Sunshine|2006|Komödie,Drama|7.8||Eine chaotische Familie fährt im VW-Bus zum Schönheitswettbewerb der Tochter.
+s|Breaking Bad|2008|Krimi,Drama,Thriller|9.5||Ein krebskranker Chemielehrer wird zum Drogenkoch.
+s|Better Call Saul|2015|Krimi,Drama|9.0||Der kleine Anwalt Jimmy McGill wird zum zwielichtigen Saul Goodman.
+s|Stranger Things|2016|Sci-Fi,Horror,Drama|8.7|N|Kinder einer Kleinstadt stoßen auf geheime Experimente und eine Parallelwelt.
+s|Dark|2017|Sci-Fi,Mystery,Thriller|8.7|N|In Winden verschwinden Kinder, und vier Familien verstricken sich in Zeitreisen.
+s|Haus des Geldes|2017|Krimi,Thriller,Action|8.2|N|Ein Mastermind plant mit acht Dieben den größten Raub der spanischen Geschichte.
+s|The Crown|2016|Drama,Historie|8.6|N|Die Regentschaft von Queen Elizabeth II. von Anfang an.
+s|Wednesday|2022|Komödie,Fantasy,Mystery|8.0|N|Wednesday Addams ermittelt an der Nevermore Academy in einer Mordserie.
+s|Squid Game|2021|Thriller,Drama,Action|8.0|N|Verschuldete Menschen spielen tödliche Kinderspiele um ein riesiges Preisgeld.
+s|Bridgerton|2020|Romantik,Drama,Historie|7.3|N|Liebe und Skandale in der Londoner High Society der Regency-Zeit.
+s|The Witcher|2019|Fantasy,Action,Abenteuer|8.0|N|Der Monsterjäger Geralt sucht seinen Platz in einer zerrissenen Welt.
+s|Arcane|2021|Animation,Action,Fantasy|9.0|N|Zwei Schwestern stehen auf verschiedenen Seiten eines Konflikts zwischen zwei Städten.
+s|Adolescence|2025|Krimi,Drama|8.1|N|Ein 13-Jähriger wird wegen Mordes an einer Mitschülerin verhaftet.
+s|Rentierbaby|2024|Drama,Thriller|7.6|N|Ein Comedian wird von einer Frau gestalkt, der er einmal einen Tee spendiert hat.
+s|Beef|2023|Komödie,Drama,Thriller|8.0|N|Ein Streit im Straßenverkehr eskaliert zu einer zerstörerischen Fehde.
+s|Ozark|2017|Krimi,Drama,Thriller|8.5|N|Ein Finanzberater muss in den Ozarks Geld für ein Drogenkartell waschen.
+s|Mindhunter|2017|Krimi,Drama,Thriller|8.6|N|FBI-Agenten befragen Serienmörder, um deren Denken zu verstehen.
+s|Das Damengambit|2020|Drama|8.5|N|Ein Waisenmädchen wird zum Schachgenie und kämpft mit ihren Dämonen.
+s|Narcos|2015|Krimi,Drama,Historie|8.8|N|Aufstieg und Fall des Drogenbarons Pablo Escobar.
+s|Black Mirror|2011|Sci-Fi,Thriller,Drama|8.7|N|Einzelgeschichten über die dunklen Seiten moderner Technik.
+s|Sex Education|2019|Komödie,Drama|8.3|N|Ein Teenager startet mit einer Mitschülerin eine Sexberatung an der Schule.
+s|One Piece|2023|Abenteuer,Action,Fantasy|8.3|N|Monkey D. Luffy segelt los, um König der Piraten zu werden.
+s|Lupin|2021|Krimi,Thriller|7.5|N|Ein Meisterdieb will den Tod seines Vaters rächen.
+s|Emily in Paris|2020|Komödie,Romantik|6.8|N|Eine Marketing-Managerin aus Chicago beginnt ein neues Leben in Paris.
+s|Kleo|2022|Thriller,Action,Komödie|7.5|N|Eine Ex-Stasi-Killerin sinnt nach dem Mauerfall auf Rache.
+s|How to Sell Drugs Online (Fast)|2019|Komödie,Krimi|7.8|N|Ein Schüler baut aus seinem Kinderzimmer einen Online-Drogenhandel auf.
+s|You – Du wirst mich lieben|2018|Thriller,Krimi,Romantik|7.7|N|Ein Buchhändler wird zum obsessiven Stalker der Frauen, in die er sich verliebt.
+s|Love, Death & Robots|2019|Animation,Sci-Fi,Horror|8.4|N|Animierte Kurzgeschichten über Liebe, Tod und Maschinen.
+s|BoJack Horseman|2014|Animation,Komödie,Drama|8.8|N|Ein abgehalfterter Sitcom-Star, der ein Pferd ist, sucht nach Sinn.
+s|3 Body Problem|2024|Sci-Fi,Mystery,Drama|7.5|N|Eine Entscheidung aus den 1960ern ruft eine außerirdische Bedrohung auf den Plan.
+s|The Gentlemen|2024|Krimi,Komödie,Action|8.0|N|Ein junger Adliger erbt ein Anwesen, auf dem ein Cannabis-Imperium betrieben wird.
+s|Ripley|2024|Krimi,Drama,Thriller|8.1|N|Ein Hochstapler wird nach Italien geschickt und beginnt ein gefährliches Spiel.
+s|Nobody Wants This|2024|Komödie,Romantik|7.8|N|Eine Sex-Podcasterin verliebt sich in einen frisch getrennten Rabbiner.
+s|Ginny & Georgia|2021|Komödie,Drama|7.5|N|Eine junge Mutter mit dunkler Vergangenheit zieht mit ihren Kindern in eine Kleinstadt.
+s|Outer Banks|2020|Abenteuer,Drama|7.5|N|Teenager auf den Outer Banks suchen nach einem legendären Schatz.
+s|Heartstopper|2022|Romantik,Drama|8.6|N|Zwei Jungen an einer britischen Schule werden Freunde und verlieben sich.
+s|Cobra Kai|2018|Action,Komödie,Drama|8.5|N|Die Karate-Kid-Rivalität lebt Jahrzehnte später wieder auf.
+s|Blue Eye Samurai|2023|Animation,Action|8.7|N|Eine Schwertkämpferin sinnt im Japan der Edo-Zeit auf Rache.
+s|Unser Planet|2019|Doku|9.3|N|Naturdoku über die Vielfalt des Lebens und seine Bedrohung.
+s|Formel 1: Drive to Survive|2019|Doku|8.5|N|Hinter den Kulissen der Formel 1.
+s|Making a Murderer|2015|Doku,Krimi|8.6|N|Ein Mann wird nach 18 Jahren entlastet und kurz darauf wegen Mordes angeklagt.
+s|The Last Dance|2020|Doku|9.1|N|Michael Jordan und die Chicago Bulls der 90er.
+s|Love Is Blind|2020|Reality,Romantik|6.0|N|Singles verloben sich, bevor sie sich zum ersten Mal sehen.
+s|Queer Eye|2018|Reality|8.4|N|Fünf Experten verpassen Menschen ein neues Lebensgefühl.
+s|Chef's Table|2015|Doku|8.5|N|Porträts der besten Köchinnen und Köche der Welt.
+s|The Boys|2019|Action,Komödie,Krimi|8.6|P|Eine Gruppe Normalsterblicher kämpft gegen korrupte Superhelden.
+s|Fallout|2024|Sci-Fi,Abenteuer,Action|8.3|P|Eine Bunkerbewohnerin wagt sich ins postapokalyptische Los Angeles.
+s|Reacher|2022|Action,Krimi|8.0|P|Der Ex-Militärpolizist Jack Reacher deckt eine Verschwörung in einer Kleinstadt auf.
+s|Die Ringe der Macht|2022|Fantasy,Abenteuer|6.9|P|Mittelerde im Zweiten Zeitalter, lange vor dem Herrn der Ringe.
+s|Invincible|2021|Animation,Action,Sci-Fi|8.7|P|Der Sohn des mächtigsten Superhelden der Erde entwickelt eigene Kräfte.
+s|Mr. & Mrs. Smith|2024|Komödie,Action,Romantik|7.2|P|Zwei Fremde werden als Ehepaar-Spione zusammengespannt.
+s|The Marvelous Mrs. Maisel|2017|Komödie,Drama|8.7|P|Eine Hausfrau in den 50ern entdeckt ihr Talent für Stand-up-Comedy.
+s|Fleabag|2016|Komödie,Drama|8.7|P|Eine schlagfertige Londonerin kämpft mit Trauer, Sex und ihrer Familie.
+s|Good Omens|2019|Fantasy,Komödie|8.0|P|Ein Engel und ein Dämon wollen die Apokalypse verhindern.
+s|LOL: Last One Laughing|2021|Komödie,Reality|7.0|P|Comedians dürfen sechs Stunden lang nicht lachen.
+s|The Mandalorian|2019|Sci-Fi,Action,Abenteuer|8.6|D|Ein Kopfgeldjäger beschützt ein mysteriöses Kind.
+s|Andor|2022|Sci-Fi,Action,Drama|8.6|D|Wie ein Dieb zum Rebellen gegen das Imperium wird.
+s|Shōgun|2024|Drama,Historie,Abenteuer|8.6|D|Ein englischer Seefahrer strandet im Japan des Jahres 1600.
+s|The Bear|2022|Drama,Komödie|8.5|D|Ein Spitzenkoch übernimmt das heruntergekommene Sandwich-Restaurant seines Bruders.
+s|Only Murders in the Building|2021|Komödie,Krimi,Mystery|8.1|D|Drei Nachbarn starten einen Podcast über einen Mord in ihrem Haus.
+s|Loki|2021|Fantasy,Sci-Fi,Action|8.2|D|Der Gott des Unheils gerät in die Fänge einer Zeitbehörde.
+s|WandaVision|2021|Sci-Fi,Komödie,Mystery|7.9|D|Wanda und Vision leben in einer Sitcom-Welt, die nicht echt ist.
+s|Daredevil: Born Again|2025|Action,Krimi|8.0|D|Matt Murdock gerät erneut mit Wilson Fisk aneinander, der nun Bürgermeister ist.
+s|Paradise|2025|Thriller,Drama,Mystery|8.0|D|Ein Secret-Service-Agent ermittelt im Mord am US-Präsidenten.
+s|Severance|2022|Sci-Fi,Thriller,Mystery|8.7|A|Angestellte trennen ihre Erinnerungen an Arbeit und Privatleben chirurgisch.
+s|Ted Lasso|2020|Komödie,Drama|8.8|A|Ein amerikanischer Football-Coach soll einen englischen Fußballklub trainieren.
+s|Slow Horses|2022|Thriller,Krimi,Drama|8.2|A|Eine Abteilung ausrangierter MI5-Agenten gerät immer wieder in große Fälle.
+s|The Studio|2025|Komödie|8.0|A|Ein neuer Studioboss will in Hollywood Kunst und Profit vereinen.
+s|Silo|2023|Sci-Fi,Mystery,Drama|8.1|A|Tausende Menschen leben in einem unterirdischen Silo und kennen den Grund nicht.
+s|Foundation|2021|Sci-Fi,Drama|7.6|A|Ein Mathematiker sagt den Untergang des Galaktischen Imperiums voraus.
+s|For All Mankind|2019|Sci-Fi,Drama,Historie|8.1|A|Was wäre, wenn die Sowjetunion zuerst auf dem Mond gelandet wäre?
+s|Shrinking|2023|Komödie,Drama|8.0|A|Ein trauernder Therapeut sagt seinen Klienten plötzlich radikal ehrlich die Meinung.
+s|Bad Sisters|2022|Komödie,Krimi,Drama|7.9|A|Fünf Schwestern wollen den tyrannischen Ehemann einer von ihnen loswerden.
+s|Game of Thrones|2011|Fantasy,Drama,Abenteuer|9.2|H|Adelshäuser kämpfen um den Eisernen Thron, während im Norden eine Gefahr erwacht.
+s|House of the Dragon|2022|Fantasy,Drama,Action|8.3|H|Der Bürgerkrieg der Targaryen, 200 Jahre vor Game of Thrones.
+s|The Last of Us|2023|Drama,Action,Abenteuer|8.6|H|Ein Schmuggler soll ein Mädchen durch ein von Infizierten verwüstetes Amerika bringen.
+s|Succession|2018|Drama,Komödie|8.9|H|Die Kinder eines Medienmoguls kämpfen um die Nachfolge im Familienimperium.
+s|The White Lotus|2021|Komödie,Drama,Mystery|8.0|H|Gäste und Personal eines Luxusresorts – und am Ende des Urlaubs eine Leiche.
+s|Chernobyl|2019|Drama,Historie,Thriller|9.3|H|Die Katastrophe von Tschernobyl und der Kampf, ihre Folgen einzudämmen.
+s|True Detective|2014|Krimi,Drama,Mystery|8.9|H|Zwei Ermittler jagen in Louisiana einen rituellen Serienmörder.
+s|Euphoria|2019|Drama|8.3|H|Eine Gruppe Teenager zwischen Drogen, Liebe und Identitätssuche.
+s|Die Sopranos|1999|Krimi,Drama|9.2|H|Ein Mafiaboss aus New Jersey geht zur Therapie.
+s|The Wire|2002|Krimi,Drama,Thriller|9.3|H|Polizei, Dealer, Politik und Medien in Baltimore.
+s|The Penguin|2024|Krimi,Drama,Action|8.6|H|Oz Cobb kämpft sich in Gothams Unterwelt nach oben.
+s|The Pitt|2025|Drama|8.8|H|Eine einzige 15-Stunden-Schicht in einer Notaufnahme in Pittsburgh.
+s|Hacks|2021|Komödie,Drama|8.2|H|Eine Comedy-Legende aus Las Vegas arbeitet mit einer jungen Autorin zusammen.
+s|Barry|2018|Komödie,Krimi,Drama|8.4|H|Ein Auftragskiller entdeckt seine Leidenschaft fürs Schauspielen.
+s|Westworld|2016|Sci-Fi,Mystery,Drama|8.5|H|In einem Wildwest-Freizeitpark erwachen die Androiden zum Bewusstsein.
+s|Mare of Easttown|2021|Krimi,Drama,Mystery|8.4|H|Eine Detective ermittelt in ihrer Kleinstadt in einem Mordfall.
+s|Big Little Lies|2017|Drama,Krimi,Mystery|8.5|H|Fünf Mütter in Monterey werden in einen Todesfall verwickelt.
+s|Friends|1994|Komödie,Romantik|8.9||Sechs Freunde meistern in New York Liebe, Jobs und das Leben.
+s|The Office|2005|Komödie|9.0||Der Alltag in einem Papiergroßhandel, gefilmt als Mockumentary.
+s|How I Met Your Mother|2005|Komödie,Romantik|8.3||Ted erzählt seinen Kindern, wie er ihre Mutter kennengelernt hat.
+s|Brooklyn Nine-Nine|2013|Komödie,Krimi|8.4||Ein chaotisches Polizeirevier in Brooklyn unter einem strengen Captain.
+s|Modern Family|2009|Komödie,Familie|8.5||Drei verwandte Familien und ihr ganz normaler Wahnsinn.
+s|The Big Bang Theory|2007|Komödie|8.1||Vier Physiker-Nerds und ihre Nachbarin Penny.
+s|Scrubs|2001|Komödie,Drama|8.4||Der junge Arzt J.D. erlebt seine Ausbildung im Sacred Heart Hospital.
+s|Parks and Recreation|2009|Komödie|8.6||Eine übermotivierte Beamtin will ihre Kleinstadt verbessern.
+s|New Girl|2011|Komödie,Romantik|7.8||Jess zieht nach einer Trennung in eine WG mit drei Männern.
+s|Abbott Elementary|2021|Komödie|8.2||Lehrkräfte einer unterfinanzierten Grundschule in Philadelphia.
+s|Grey's Anatomy|2005|Drama,Romantik|7.6||Junge Chirurginnen und Chirurgen zwischen OP und Liebeschaos.
+s|Gilmore Girls|2000|Komödie,Drama|8.2||Eine junge Mutter und ihre Tochter in der Kleinstadt Stars Hollow.
+s|Sherlock|2010|Krimi,Mystery,Drama|9.0||Sherlock Holmes und Dr. Watson ermitteln im heutigen London.
+s|Peaky Blinders|2013|Krimi,Drama|8.8||Die Gangsterfamilie Shelby steigt im Birmingham der 1920er auf.
+s|Downton Abbey|2010|Drama,Historie,Romantik|8.7||Eine Adelsfamilie und ihre Bediensteten im England des frühen 20. Jahrhunderts.
+s|Doctor Who|2005|Sci-Fi,Abenteuer|8.6||Ein außerirdischer Zeitreisender reist mit Begleitern durch Raum und Zeit.
+s|The Walking Dead|2010|Horror,Drama,Thriller|8.1||Überlebende kämpfen nach einer Zombie-Apokalypse um ihr Leben.
+s|Lost|2004|Mystery,Abenteuer,Drama|8.3||Überlebende eines Flugzeugabsturzes stranden auf einer rätselhaften Insel.
+s|Prison Break|2005|Action,Krimi,Thriller|8.3||Ein Ingenieur lässt sich einsperren, um seinen Bruder aus dem Gefängnis zu holen.
+s|Dexter|2006|Krimi,Drama,Thriller|8.6||Ein Forensiker der Polizei ist heimlich ein Serienmörder, der nur Mörder tötet.
+s|Fargo|2014|Krimi,Drama,Thriller|8.9||Schräge Kriminalfälle im verschneiten Mittleren Westen.
+s|Mad Men|2007|Drama|8.7||Ein rätselhaftes Werbegenie im New York der 60er.
+s|Yellowstone|2018|Drama,Western|8.6||Die Familie Dutton kämpft um die größte Ranch der USA.
+s|Twin Peaks|1990|Mystery,Krimi,Drama|8.8||Ein FBI-Agent ermittelt im Mordfall Laura Palmer in einer seltsamen Kleinstadt.
+s|Babylon Berlin|2017|Krimi,Drama,Historie|8.3||Ein Kommissar ermittelt im Berlin der späten 1920er.
+s|Der Tatortreiniger|2011|Komödie|8.6||Ein Hamburger Tatortreiniger philosophiert mit den Menschen am Einsatzort.
+s|Stromberg|2004|Komödie|8.3||Ein selbstverliebter Büroleiter bei einer Versicherung.
+s|Shameless|2011|Komödie,Drama|8.5||Die chaotische Familie Gallagher schlägt sich in Chicago durch.
+s|Vikings|2013|Action,Abenteuer,Historie|8.5||Der Wikinger Ragnar Lothbrok wird zur Legende.
+s|The Handmaid's Tale|2017|Drama,Sci-Fi,Thriller|8.4||In einem totalitären Regime werden fruchtbare Frauen zu Dienerinnen gemacht.
+s|Yellowjackets|2021|Drama,Horror,Mystery|7.8||Ein Mädchenfußballteam strandet nach einem Flugzeugabsturz in der Wildnis.
+s|Attack on Titan|2013|Animation,Action,Fantasy|9.1||Die Menschheit kämpft hinter riesigen Mauern gegen menschenfressende Titanen.
+s|Death Note|2006|Animation,Thriller,Mystery|9.0||Ein Schüler findet ein Notizbuch, das jeden tötet, dessen Name darin steht.
+s|Frieren|2023|Animation,Fantasy,Abenteuer|8.9||Eine langlebige Elfenmagierin reist nach dem Sieg über den Dämonenkönig weiter.
+s|Avatar – Der Herr der Elemente|2005|Animation,Abenteuer,Fantasy|9.3||Der junge Avatar Aang muss die vier Elemente meistern und die Welt retten.
+s|Rick and Morty|2013|Animation,Komödie,Sci-Fi|9.1||Ein zynischer Wissenschaftler reist mit seinem Enkel durchs Multiversum.
+s|Die Simpsons|1989|Animation,Komödie,Familie|8.7||Die gelbe Familie aus Springfield.
+s|Planet Erde II|2016|Doku|9.5||Atemberaubende Aufnahmen von Tieren in den Lebensräumen der Erde.
+s|The Great British Bake Off|2010|Reality|8.6||Hobbybäcker treten in einem Zelt gegeneinander an.`;
+const GENRES = ["Action","Abenteuer","Animation","Doku","Drama","Familie","Fantasy","Historie","Horror","Komödie","Krieg","Krimi","Musik","Mystery","Reality","Romantik","Sci-Fi","Thriller","Western"];
+const PROV = {N:"Netflix",P:"Amazon Prime Video",D:"Disney Plus",A:"Apple TV+",H:"HBO Max"}; // Codes des alten Startkatalogs
+// TMDB-Genrenamen (de/en, Filme und Serien) -> Genres der App
+const GMAP = {"Liebesfilm":["Romantik"],"Romance":["Romantik"],"Science Fiction":["Sci-Fi"],"Science-Fiction":["Sci-Fi"],"Dokumentarfilm":["Doku"],"Documentary":["Doku"],"Kriegsfilm":["Krieg"],"War":["Krieg"],"War & Politics":["Krieg"],"Krieg & Politik":["Krieg"],"Action & Adventure":["Action","Abenteuer"],"Sci-Fi & Fantasy":["Sci-Fi","Fantasy"],"Kids":["Familie"],"Family":["Familie"],"Soap":["Drama"],"Komödie":["Komödie"],"Comedy":["Komödie"],"Crime":["Krimi"],"Adventure":["Abenteuer"],"History":["Historie"],"Music":["Musik"],"Musical":["Musik"],"TV-Film":[],"TV Movie":[],"News":[],"Talk":[]};
+const normGenres = arr => { const out = []; for (const g of arr || []) for (const x of (GMAP[g] ?? (GENRES.includes(g) ? [g] : []))) if (!out.includes(x)) out.push(x); return out.length ? out.slice(0,3) : ["Drama"]; };
+// Streaming-Namen kürzer anzeigen
+const PNAME = {"Amazon Prime Video":"Prime Video","Amazon Prime Video with Ads":"Prime Video","Disney Plus":"Disney+","Netflix Standard with Ads":"Netflix","Netflix basic with Ads":"Netflix","Paramount Plus":"Paramount+","Paramount Plus Apple TV Channel":"Paramount+","WOW Presents Plus":"WOW Presents","Apple TV Plus":"Apple TV+","Apple TV":"Apple TV"};
+const pn = p => PNAME[p] || p;
+const uniq = a => [...new Set(a)];
+const GCOL = {Action:["#ff5a36","#2b0d14"],Abenteuer:["#f2a33a","#152637"],Animation:["#36d8c6","#36196a"],Doku:["#9fd27a","#0f2a22"],Drama:["#e0a560","#26192f"],Familie:["#ffd166","#352a7a"],Fantasy:["#b48cff","#16123a"],Historie:["#cfa86c","#2b2017"],Horror:["#d1162a","#0c0507"],Komödie:["#ffcf3a","#b32656"],Krieg:["#9aab5f","#1a1d14"],Krimi:["#4f8cff","#0b1022"],Musik:["#ff4fd8","#1b0f3a"],Mystery:["#6f7dff","#0d0b1f"],Reality:["#ff9a5a","#3a1530"],Romantik:["#ff6f91","#3b0f2b"],"Sci-Fi":["#22e0ff","#0a0f2c"],Thriller:["#a7b0c4","#0e1016"],Western:["#e08a3c","#2a160a"]};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const slug = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ß/g,"ss").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60) || "titel";
+function hash(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+const lsGet = (k,d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch { return d } };
+const lsSet = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} };
+
+/* ---------- catalog ---------- */
+// Einheitliches Format für alle Titel:
+// {id,type:"f"|"s",title,orig,year,genres,rating,votes,desc,tagline,runtime,seasons,episodes,status,cast,crew,network,fsk,prov:{flat,rent,buy},trailer,tmdb,custom}
+const emptyProv = () => ({flat:[],rent:[],buy:[]});
+const BASE = [];
+{ const seen = new Set();
+  for (const line of CATALOG_RAW.trim().split("\n")) {
+    if (!line) continue;
+    const [type,title,year,genres,rating,prov,desc] = line.split("|");
+    let id = slug(title) + "-" + year; if (seen.has(id)) id += "-" + type; seen.add(id);
+    BASE.push({id,type,title,year:+year,genres:genres.split(","),rating:+rating,votes:0,desc,prov:{flat:prov&&PROV[prov]?[pn(PROV[prov])]:[],rent:[],buy:[]},cast:[],crew:[],tmdb:false,custom:false});
+  } }
+
+const strs = (a, n) => Array.isArray(a) ? a.filter(x => typeof x === "string" && x).map(x => x.slice(0,80)).slice(0,n) : [];
+function fromTmdb(x){
+  if (!x || typeof x.id !== "string" || !/^[mt]\d+$/.test(x.id) || !x.title) return null;
+  const p = x.prov || {};
+  return {
+    id: x.id, type: x.t === "s" ? "s" : "f", title: String(x.title).slice(0,120), orig: String(x.orig || "").slice(0,120),
+    year: +x.year || 0, genres: normGenres(strs(x.genres, 4)), rating: +x.rating || 0, votes: +x.votes || 0,
+    desc: String(x.overview || "").slice(0,1200), tagline: String(x.tagline || "").slice(0,200),
+    runtime: +x.runtime || 0, seasons: +x.seasons || 0, episodes: +x.episodes || 0, status: String(x.status || ""),
+    cast: strs(x.cast, 6), crew: strs(x.crew, 2), network: strs(x.network, 2), fsk: String(x.fsk || "").slice(0,4),
+    prov: {flat: uniq(strs(p.flat, 12).map(pn)), rent: uniq(strs(p.rent, 12).map(pn)), buy: uniq(strs(p.buy, 12).map(pn))},
+    trailer: /^[\w-]{6,20}$/.test(x.trailer || "") ? x.trailer : "", tmdb: true, custom: false,
+  };
+}
+
+// Aktiver Katalog: TMDB (aus der Datenbank), sonst der Startkatalog.
+let CATALOG = BASE;
+let CAT_META = null;            // {updated,count,...} wenn TMDB-Katalog aktiv
+let INDEX = new Map();          // id -> item
+let RANK = new Map();           // id -> 0..1 (0 = am beliebtesten)
+let ALIAS = new Map();          // alte Startkatalog-ID -> TMDB-ID, damit alte Swipes weiter zählen
+const canon = id => ALIAS.get(id) || id;
+function reindex(){
+  INDEX = new Map(); RANK = new Map();
+  const n = Math.max(CATALOG.length, 1);
+  CATALOG.forEach((it, k) => { INDEX.set(it.id, it); RANK.set(it.id, k / n); });
+  for (const c of S.custom) INDEX.set(c.id, c);
+  S.watched = new Set([...S.watchedRaw].map(canon));
+}
+function buildAlias(items){
+  const key = new Map();
+  for (const it of items) for (const t of [it.title, it.orig]) if (t) { const k = slug(t) + "-" + it.year; if (!key.has(k)) key.set(k, it.id); }
+  const a = new Map();
+  for (const b of BASE) {
+    const s = slug(b.title);
+    const hit = key.get(s + "-" + b.year) || key.get(s + "-" + (b.year + 1)) || key.get(s + "-" + (b.year - 1));
+    if (hit) a.set(b.id, hit);
+  }
+  return a;
+}
+function useCatalog(items, meta){
+  const seen = new Set(), list = [];
+  for (const raw of items) { const it = fromTmdb(raw); if (it && !seen.has(it.id)) { seen.add(it.id); list.push(it); } }
+  if (list.length < 50) return false;
+  ALIAS = buildAlias(list);
+  // Titel aus dem Startkatalog, die es bei TMDB nicht gibt, bleiben erhalten (mit ihren alten Swipes).
+  const mapped = new Set(ALIAS.keys());
+  CATALOG = list.concat(BASE.filter(b => !mapped.has(b.id)));
+  CAT_META = meta || null;
+  reindex();
+  return true;
+}
+
+// Zwischenspeicher im Browser, damit der Katalog nicht bei jedem Öffnen neu geladen wird.
+const IDB = {
+  open(){ return new Promise((res, rej) => { try { const r = indexedDB.open("filmduo", 1); r.onupgradeneeded = () => r.result.createObjectStore("kv"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); },
+  async get(k){ try { const d = await IDB.open(); return await new Promise(res => { const q = d.transaction("kv").objectStore("kv").get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(undefined); }); } catch { return undefined; } },
+  async set(k, v){ try { const d = await IDB.open(); await new Promise(res => { const t = d.transaction("kv","readwrite"); t.objectStore("kv").put(v, k); t.oncomplete = res; t.onerror = res; }); } catch {} },
+};
+
+async function loadCatalog(db){
+  let meta;
+  try { const s = await db.doc("catalog/meta").get(); if (!s.exists) return false; meta = s.data(); }
+  catch { return false; }
+  const n = Math.min(+meta.chunks || 0, 200);
+  if (!n || !meta.updated) return false;
+  const cached = await IDB.get("catalog");
+  if (cached && cached.updated === meta.updated && Array.isArray(cached.items)) return useCatalog(cached.items, meta);
+  const ids = Array.from({length: n}, (_, i) => "c" + String(i).padStart(2, "0"));
+  const parts = new Array(n);
+  try {
+    let next = 0; // höchstens 4 gleichzeitig, um das Abruflimit zu schonen
+    const worker = async () => { while (next < n) { const i = next++; const s = await db.doc("catalog/" + ids[i]).get(); parts[i] = s.exists ? (s.data().items || []) : []; } };
+    await Promise.all([worker(), worker(), worker(), worker()]);
+  } catch { return cached ? useCatalog(cached.items, meta) : false; }
+  const items = parts.flat();
+  if (!useCatalog(items, meta)) return false;
+  IDB.set("catalog", {updated: meta.updated, items});
+  return true;
+}
+
+/* ---------- state ---------- */
+const S = {
+  mode: "loading",           // loading | local | db
+  db: null, user: null, uid: null, isOwner: false,
+  pair: null, members: [], partner: null, partnerName: "", partnerAvatar: "", meAvatar: "", meName: "",
+  swipes: new Map(),         // key uid~id -> {u,i,l,t}
+  watched: new Set(), watchedRaw: new Set(), custom: [],
+  queue: [], undo: [], tab: "swipe",
+  filters: null,
+  subs: [], firstSwipeSnap: true, busy: false, profileLoaded: false,
+};
+const YEAR_MIN = 1920, YEAR_MAX = new Date().getFullYear() + 1;
+const DEFAULT_FILTERS = () => ({type:"all",genres:[],min:0,prov:[],from:YEAR_MIN,to:YEAR_MAX,maxlen:0});
+S.filters = Object.assign(DEFAULT_FILTERS(), lsGet("filmduo.filters2", {}));
+reindex();
+const allItems = () => CATALOG.concat(S.custom);
+const byId = id => INDEX.get(canon(id));
+function mine(){ const m = new Map(); for (const s of S.swipes.values()) if (s.u === (S.uid||"me")) m.set(canon(s.i), s.l); return m; }
+function theirs(){ const m = new Map(); if (!S.partner) return m; for (const s of S.swipes.values()) if (s.u === S.partner) m.set(canon(s.i), s.l); return m; }
+function matches(){ const a = mine(), b = theirs(), out = []; for (const [i,l] of a) if (l && b.get(i) === true) { const it = byId(i); if (it) out.push(it); } return out; }
+
+function passes(it){
+  const f = S.filters;
+  if (f.type !== "all" && it.type !== f.type) return false;
+  if (f.genres.length && !it.genres.some(g => f.genres.includes(g))) return false;
+  if (f.min && (it.rating || 0) < f.min) return false;
+  if (f.prov.length && !(it.prov?.flat || []).some(p => f.prov.includes(p))) return false;
+  if (f.maxlen && it.runtime && it.runtime > f.maxlen) return false;
+  if (it.year && (it.year < f.from || it.year > f.to)) return false;
+  return true;
+}
+function filtersActive(){ const f = S.filters; return f.type!=="all"||f.genres.length||f.min||f.prov.length||f.maxlen||f.from!==YEAR_MIN||f.to!==YEAR_MAX; }
+
+function rebuildQueue(){
+  const me = mine(), them = theirs(), seed = S.uid || "local";
+  const items = allItems().filter(it => !me.has(it.id) && passes(it));
+  // Beliebte Titel kommen eher, gemischt mit Zufall. Was dein Duo mag, rückt nach vorn,
+  // aber nicht ganz oben, damit es nicht auffällt.
+  const key = it => (RANK.get(it.id) ?? 0.5) * .7 + (hash(seed + it.id) % 1000) / 1000 * .3 - (them.get(it.id) === true ? .2 : 0) - (it.custom ? 1 : 0);
+  const k = new Map(items.map(it => [it.id, key(it)]));
+  items.sort((a,b) => k.get(a.id) - k.get(b.id));
+  S.queue = items.map(i => i.id);
+}
+
+/* ---------- poster art ---------- */
+function posterHTML(it, mini){
+  const [c1,c2] = GCOL[it.genres[0]] || ["#e5398f","#1b1323"];
+  const h = hash(it.id), comp = h % 3;
+  const len = it.title.length;
+  const ts = len > 34 ? 9 : len > 24 ? 10.5 : len > 16 ? 12.5 : len > 9 ? 15 : 19;
+  const tsm = len > 24 ? 12 : len > 14 ? 15 : 20;
+  return `<div class="poster c${comp}${mini?" mini":""}" style="--c1:${c1};--c2:${c2};--ts:${ts}cqw;--tsm:${tsm}cqw" aria-hidden="true"><div class="shape"></div><div class="pyear">${it.year} · ${it.type==="s"?"Serie":"Film"}</div><div class="ptitle">${esc(it.title)}</div></div>`;
+}
+function fmtRuntime(m){ if (!m) return ""; const h = Math.floor(m / 60), r = m % 60; return h ? `${h} Std.${r ? ` ${r} Min.` : ""}` : `${r} Min.`; }
+function lengthText(it){
+  if (it.type === "s") {
+    const parts = [];
+    if (it.seasons) parts.push(`${it.seasons} ${it.seasons === 1 ? "Staffel" : "Staffeln"}`);
+    if (it.runtime) parts.push(`~${it.runtime} Min./Folge`);
+    return parts.join(" · ");
+  }
+  return fmtRuntime(it.runtime);
+}
+const fskHTML = it => /^\d{1,2}$/.test(it.fsk || "") ? `<span class="fsk" title="FSK ${esc(it.fsk)}">${esc(it.fsk)}+</span>` : "";
+const metaHTML = it => `<span>${it.year || ""}</span><span>${it.type==="s"?"Serie":"Film"}</span>${lengthText(it)?`<span>${esc(lengthText(it))}</span>`:""}${it.rating?`<span class="star">★ ${it.rating.toFixed(1)}</span>`:""}${fskHTML(it)}`;
+function chipsHTML(it, maxProv = 3){
+  const flat = it.prov?.flat || [];
+  const sel = S.filters.prov;
+  // gefilterte Dienste zuerst zeigen
+  const ordered = sel.length ? flat.filter(p => sel.includes(p)).concat(flat.filter(p => !sel.includes(p))) : flat;
+  const shown = ordered.slice(0, maxProv), rest = ordered.length - shown.length;
+  return `${shown.map(p=>`<span class="chip prov">${esc(p)}</span>`).join("")}${rest>0?`<span class="chip more-prov">+${rest}</span>`:""}${it.genres.map(g=>`<span class="chip">${esc(g)}</span>`).join("")}`;
+}
+const castLine = it => it.cast?.length ? `<div class="castline">Mit <b>${esc(it.cast.slice(0,3).join(", "))}</b></div>` : "";
+
+/* ---------- swipe deck ---------- */
+function renderDeck(){
+  const stage = $("#stage");
+  stage.innerHTML = "";
+  const them = theirs();
+  const top3 = S.queue.slice(0,3);
+  if (!top3.length){
+    stage.innerHTML = `<div class="empty"><h2>${filtersActive()?"Keine Titel mehr für diese Filter":"Alles durchgeswiped"}</h2><p>${filtersActive()?"Lockere die Filter oder füge eigene Titel hinzu.":"Ihr habt den ganzen Katalog bewertet. Füge eigene Titel hinzu, um weiterzumachen."}</p><div class="row" style="justify-content:center">${filtersActive()?`<button class="btn" data-act="filters">Filter anpassen</button>`:""}<button class="btn primary" data-act="add">Titel hinzufügen</button></div></div>`;
+    stage.querySelector('[data-act="filters"]')?.addEventListener("click", openFilters);
+    stage.querySelector('[data-act="add"]').addEventListener("click", () => { setTab("duo"); setTimeout(()=>$("#addTitle")?.focus(),50); });
+  }
+  top3.slice().reverse().forEach((id, ri) => {
+    const i = top3.length - 1 - ri, it = byId(id); if (!it) return;
+    const el = document.createElement("article");
+    el.className = "card" + (i ? " under" : "");
+    el.style.transform = i ? `translateY(${i*12}px) scale(${1 - i*.045})` : "";
+    el.style.zIndex = 10 - i;
+    el.innerHTML = `${posterHTML(it)}
+      ${i===0 && them.get(id)===true ? `<div class="partner-liked">♥ ${esc(S.partnerName || "Dein Duo")} will das sehen</div>` : ""}
+      <button class="more" aria-label="Details zu ${esc(it.title)}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 11v6M12 7.5v.5"/></svg></button>
+      <div class="stamp like">Mag ich</div><div class="stamp nope">Nö</div>
+      <div class="info"><div class="meta">${metaHTML(it)}</div><div class="chips">${chipsHTML(it)}</div><div class="desc">${esc(it.desc || "Keine Beschreibung.")}</div>${castLine(it)}</div>`;
+    el.querySelector(".more").addEventListener("click", e => { e.stopPropagation(); openDetail(it); });
+    if (!i) bindDrag(el, it);
+    stage.appendChild(el);
+  });
+  $("#undoBtn").disabled = !S.undo.length;
+  $("#likeBtn").disabled = $("#nopeBtn").disabled = $("#infoBtn").disabled = !top3.length;
+}
+
+function bindDrag(card, it){
+  let sx=0, sy=0, dx=0, dy=0, t0=0, down=false;
+  const like = card.querySelector(".stamp.like"), nope = card.querySelector(".stamp.nope");
+  card.addEventListener("pointerdown", e => {
+    if (e.target.closest("button") || S.busy) return;
+    down = true; sx = e.clientX; sy = e.clientY; dx = dy = 0; t0 = performance.now();
+    card.setPointerCapture(e.pointerId); card.style.transition = "none";
+  });
+  card.addEventListener("pointermove", e => {
+    if (!down) return;
+    dx = e.clientX - sx; dy = e.clientY - sy;
+    card.style.transform = `translate(${dx}px,${dy*.4}px) rotate(${dx/16}deg)`;
+    like.style.opacity = Math.max(0, Math.min(1, dx/90));
+    nope.style.opacity = Math.max(0, Math.min(1, -dx/90));
+  });
+  const end = () => {
+    if (!down) return; down = false;
+    const dt = performance.now() - t0, v = Math.abs(dx) / Math.max(dt,1);
+    if (Math.abs(dx) < 6 && Math.abs(dy) < 6 && dt < 350) { card.style.transform = ""; openDetail(it); return; }
+    if (Math.abs(dx) > 110 || (Math.abs(dx) > 45 && v > .55)) { fly(card, dx > 0, dy*.4); return; }
+    card.style.transition = ""; card.style.transform = ""; like.style.opacity = nope.style.opacity = 0;
+  };
+  card.addEventListener("pointerup", end);
+  card.addEventListener("pointercancel", end);
+}
+
+function fly(card, isLike, dy=0){
+  if (S.busy) return; S.busy = true;
+  const id = S.queue[0], it = byId(id);
+  card.style.transition = "transform .32s ease-in, opacity .32s ease-in";
+  card.querySelector(isLike ? ".stamp.like" : ".stamp.nope").style.opacity = 1;
+  card.style.transform = `translate(${(isLike?1:-1)*window.innerWidth*1.1}px,${dy-30}px) rotate(${isLike?28:-28}deg)`;
+  card.style.opacity = "0";
+  setTimeout(() => { S.busy = false; commitSwipe(it, isLike); }, 260);
+}
+function swipeTop(isLike){ const card = $("#stage .card:not(.under)"); if (card) fly(card, isLike); }
+
+async function commitSwipe(it, isLike){
+  if (!it) return;
+  const uid = S.uid || "me", key = uid + "~" + it.id;
+  const rec = {u: uid, i: it.id, l: isLike, t: Date.now()};
+  S.swipes.set(key, rec);
+  S.queue = S.queue.filter(x => x !== it.id);
+  S.undo.push(it.id); if (S.undo.length > 30) S.undo.shift();
+  renderDeck(); renderBadge();
+  if (isLike && theirs().get(it.id) === true) showMatch(it);
+  if (S.mode === "db" && S.pair) {
+    try { await S.db.doc(`pairs/${S.pair}/swipes/${key}`).set(rec); }
+    catch (e) { toast(writeError(e)); }
+  } else saveLocal();
+}
+
+async function undo(){
+  const id = S.undo.pop(); if (!id) return;
+  const key = (S.uid || "me") + "~" + id;
+  S.swipes.delete(key);
+  S.queue.unshift(id);
+  renderDeck(); renderBadge();
+  if (S.mode === "db" && S.pair) { try { await S.db.doc(`pairs/${S.pair}/swipes/${key}`).delete(); } catch (e) { toast(writeError(e)); } }
+  else saveLocal();
+}
+
+function writeError(e){
+  if (e && e.code === "quota_exceeded") return "Der Speicher ist voll. Entfernt alte Titel, um weiterzumachen.";
+  if (e && e.code === "invalid_argument") return "Speichern nicht erlaubt. Bitte den Besitzer, dich als Bearbeiter einzuladen.";
+  return "Konnte nicht speichern. Prüfe deine Verbindung.";
+}
+
+/* ---------- local mode ---------- */
+function saveLocal(){
+  if (S.mode === "db") return;
+  lsSet("filmduo.local", {swipes:[...S.swipes.values()], watched:[...S.watchedRaw], custom:S.custom});
+}
+const normCustom = c => ({...c, prov: c.prov && typeof c.prov === "object" ? c.prov : emptyProv(), cast: [], crew: [], custom: true});
+function loadLocal(){
+  const d = lsGet("filmduo.local", null); if (!d) return;
+  S.swipes = new Map((d.swipes||[]).map(s => [s.u+"~"+s.i, s]));
+  S.watchedRaw = new Set(d.watched||[]); S.custom = (d.custom||[]).map(normCustom);
+  reindex();
+}
+
+/* ---------- match ---------- */
+function showMatch(it){
+  const o = $("#matchOverlay");
+  o.innerHTML = `<h2>Match!</h2>${posterHTML(it)}<p>Du und ${esc(S.partnerName || "dein Duo")} wollt beide <b>${esc(it.title)}</b> sehen.</p><div class="row" style="justify-content:center"><button class="btn" data-a="go">Weiter swipen</button><button class="btn primary" data-a="list">Zu den Matches</button></div>`;
+  o.hidden = false;
+  o.querySelector('[data-a="go"]').onclick = () => o.hidden = true;
+  o.querySelector('[data-a="list"]').onclick = () => { o.hidden = true; setTab("matches"); };
+  o.querySelector('[data-a="go"]').focus();
+}
+
+/* ---------- matches view ---------- */
+function renderBadge(){
+  const n = matches().filter(m => !S.watched.has(m.id)).length;
+  const b = $("#matchBadge"); b.hidden = !n; b.textContent = n;
+}
+function renderMatches(){
+  const v = $("#view-matches");
+  const all = matches().sort((a,b) => a.title.localeCompare(b.title, "de"));
+  const open = all.filter(m => !S.watched.has(m.id)), seen = all.filter(m => S.watched.has(m.id));
+  let h = `<h1 class="page">Matches</h1><p class="sub">${S.partner ? `Titel, die ${esc(S.partnerName || "dein Duo")} und du sehen wollt.` : "Sobald dein Partner im Duo ist und swipet, landen gemeinsame Likes hier."}</p>`;
+  if (open.length > 1) h += `<button class="btn primary" id="randomBtn" style="width:100%">Was schauen wir heute? Zufällig wählen</button>`;
+  if (!all.length) {
+    h += `<div class="panel" style="margin-top:8px"><h3>Noch keine Matches</h3><p>${S.mode==="db" && !S.pair ? "Bilde zuerst im Tab Duo ein Duo mit deinem Partner." : "Swipet weiter. Wenn ihr beide denselben Titel nach rechts wischt, erscheint er hier."}</p></div>`;
+  }
+  if (open.length) h += `<div class="sec-label">Noch nicht gesehen · ${open.length}</div><div class="list">${open.map(itemRow).join("")}</div>`;
+  if (seen.length) h += `<div class="sec-label">Schon gesehen · ${seen.length}</div><div class="list">${seen.map(itemRow).join("")}</div>`;
+  v.innerHTML = h;
+  v.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", e => { if (e.target.closest("[data-watch]")) return; openDetail(byId(b.dataset.open)); }));
+  v.querySelectorAll("[data-watch]").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); toggleWatched(b.dataset.watch); }));
+  $("#randomBtn")?.addEventListener("click", () => { const p = open[Math.floor(Math.random()*open.length)]; openDetail(p, "Heute Abend: "); });
+}
+const itemRow = it => `<div class="item${S.watched.has(it.id)?" seen":""}" data-open="${esc(it.id)}" role="button" tabindex="0">${posterHTML(it,true)}<div class="txt"><div class="t">${esc(it.title)}</div><div class="m">${it.year} · ${it.type==="s"?"Serie":"Film"}${lengthText(it)?` · ${esc(lengthText(it))}`:""}${it.rating?` · ★ ${it.rating.toFixed(1)}`:""}</div><div class="m">${(it.prov?.flat||[]).length?esc(it.prov.flat.slice(0,3).join(", ")):esc(it.genres.join(", "))}</div></div><button class="toggle${S.watched.has(it.id)?" on":""}" data-watch="${esc(it.id)}" aria-label="${S.watched.has(it.id)?"Als ungesehen markieren":"Als gesehen markieren"}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button></div>`;
+
+async function toggleWatched(id){
+  const on = !S.watched.has(id);
+  // Beim Entfernen auch Einträge unter alten Startkatalog-IDs löschen.
+  const rawIds = on ? [id] : [...S.watchedRaw].filter(r => canon(r) === id);
+  for (const r of rawIds) on ? S.watchedRaw.add(r) : S.watchedRaw.delete(r);
+  S.watched = new Set([...S.watchedRaw].map(canon));
+  renderMatches(); renderBadge();
+  if (S.mode === "db" && S.pair) {
+    try {
+      for (const r of rawIds) { const ref = S.db.doc(`pairs/${S.pair}/watched/${r}`); on ? await ref.set({t: Date.now(), by: S.uid}) : await ref.delete(); }
+    } catch (e) { toast(writeError(e)); }
+  } else saveLocal();
+}
+
+/* ---------- detail sheet ---------- */
+function openDetail(it, prefix=""){
+  if (!it) return;
+  const q = encodeURIComponent(it.title);
+  const yt = encodeURIComponent(`${it.title} ${it.year} Trailer deutsch`);
+  const status = mine().get(it.id), them = theirs().get(it.id);
+  const num = it.tmdb ? it.id.slice(1) : "";
+  const kind = it.type === "s" ? "tv" : "movie";
+  const whereUrl = it.tmdb ? `https://www.themoviedb.org/${kind}/${num}/watch?locale=DE` : `https://www.justwatch.com/de/Suche?q=${q}`;
+  const trailerUrl = it.trailer ? `https://www.youtube.com/watch?v=${encodeURIComponent(it.trailer)}` : `https://www.youtube.com/results?search_query=${yt}`;
+  const p = it.prov || emptyProv();
+  const grp = (lbl, arr) => arr.length ? `<div class="grp"><span class="lbl">${lbl}</span>${arr.map(x=>`<span class="chip${lbl==="Abo"?" prov":""}">${esc(x)}</span>`).join("")}</div>` : "";
+  const provBlock = it.tmdb
+    ? (p.flat.length || p.rent.length || p.buy.length
+        ? `<div class="provs">${grp("Abo", p.flat)}${grp("Leihen", p.rent)}${grp("Kaufen", p.buy)}</div><p class="credit">Streaming-Angebote in Deutschland laut JustWatch, Stand ${CAT_META?.updated ? new Date(CAT_META.updated).toLocaleDateString("de-DE") : "unbekannt"}.</p>`
+        : `<p class="note">Läuft gerade bei keinem Streamingdienst in Deutschland.</p>`)
+    : (p.flat.length ? `<p class="note">Eigenproduktion von ${esc(pn(p.flat[0]))}. Ob ein Titel gerade bei deinem Dienst läuft, zeigt dir JustWatch.</p>` : `<p class="note">Wo der Titel gerade läuft, ändert sich oft. JustWatch zeigt dir die aktuellen Anbieter in Deutschland.</p>`);
+  const facts = [];
+  if (lengthText(it)) facts.push(["Länge", lengthText(it) + (it.type === "s" && it.episodes ? ` (${it.episodes} Folgen)` : "")]);
+  if (it.crew?.length) facts.push([it.type === "s" ? "Idee" : "Regie", it.crew.join(", ")]);
+  if (it.cast?.length) facts.push(["Besetzung", it.cast.join(", ")]);
+  if (it.network?.length) facts.push(["Sender", it.network.join(", ")]);
+  if (it.type === "s" && it.status) facts.push(["Status", {"Returning Series":"läuft noch","Ended":"abgeschlossen","Canceled":"abgesetzt","In Production":"in Produktion"}[it.status] || it.status]);
+  if (it.orig && it.orig !== it.title) facts.push(["Original", it.orig]);
+  if (/^\d{1,2}$/.test(it.fsk || "")) facts.push(["FSK", "ab " + it.fsk]);
+  openSheet(`<div class="detail-top">${posterHTML(it)}<div class="txt"><h2>${esc(prefix)}${esc(it.title)}</h2><div class="meta">${metaHTML(it)}</div><div class="chips">${it.genres.map(g=>`<span class="chip">${esc(g)}</span>`).join("")}</div></div></div>
+    ${it.tagline ? `<p class="tagline">„${esc(it.tagline)}“</p>` : ""}
+    <p style="margin:0;font-size:15px">${esc(it.desc || "Keine Beschreibung.")}</p>
+    ${facts.length ? `<dl class="facts">${facts.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : ""}
+    ${provBlock}
+    ${it.rating ? `<p class="credit">★ ${it.tmdb ? `TMDB-Bewertung aus ${it.votes.toLocaleString("de-DE")} Stimmen` : "ungefährer IMDb-Wert"}.</p>` : ""}
+    <div class="links"><a class="btn" href="${whereUrl}" target="_blank" rel="noopener">Wo streamen?</a><a class="btn" href="${trailerUrl}" target="_blank" rel="noopener">Trailer ansehen</a></div>
+    <p class="sub" style="margin:0">${status===true?"Du willst das sehen.":status===false?"Du hast das weggewischt.":"Noch nicht bewertet."}${them===true && status===true?` ${esc(S.partnerName||"Dein Duo")} auch – Match!`:""}</p>
+    ${S.queue[0]===it.id ? `<div class="links"><button class="btn danger" data-d="nope">Nö</button><button class="btn primary" data-d="like">Will ich sehen</button></div>` : ""}`);
+  $("#sheetIn").querySelector('[data-d="nope"]')?.addEventListener("click", () => { closeSheet(); setTimeout(()=>swipeTop(false),200); });
+  $("#sheetIn").querySelector('[data-d="like"]')?.addEventListener("click", () => { closeSheet(); setTimeout(()=>swipeTop(true),200); });
+}
+
+function openSheet(html){
+  const sh = $("#sheet"), bd = $("#backdrop");
+  $("#sheetIn").innerHTML = `<div class="grab"></div><button class="icon-btn sheet-x" aria-label="Schließen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>` + html;
+  $("#sheetIn .sheet-x").onclick = closeSheet;
+  sh.hidden = bd.hidden = false; sh.scrollTop = 0;
+  requestAnimationFrame(() => { sh.classList.add("open"); bd.classList.add("open"); });
+}
+function closeSheet(){
+  const sh = $("#sheet"), bd = $("#backdrop");
+  sh.classList.remove("open"); bd.classList.remove("open");
+  setTimeout(() => { sh.hidden = bd.hidden = true; }, 280);
+}
+
+/* ---------- filters ---------- */
+function openFilters(){
+  const f = JSON.parse(JSON.stringify(S.filters));
+  const yrs = []; for (let y = YEAR_MAX; y >= YEAR_MIN; y--) yrs.push(y);
+  // Dienste: die häufigsten im aktuellen Katalog (bei TMDB aus meta.providers)
+  const counts = new Map();
+  if (CAT_META?.providers?.length) for (const x of CAT_META.providers) { if (x && typeof x.name === "string") counts.set(pn(x.name), (counts.get(pn(x.name))||0) + (+x.count||0)); }
+  else for (const it of CATALOG) for (const pv of it.prov?.flat || []) counts.set(pv, (counts.get(pv)||0) + 1);
+  const provList = [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,14).map(([n])=>n);
+  for (const x of f.prov) if (!provList.includes(x)) provList.push(x);
+  const lenLabel = v => v ? `≤ ${fmtRuntime(v)}` : "egal";
+  const yOpt = sel => yrs.map(y => `<option value="${y}"${y===sel?" selected":""}>${y}</option>`).join("");
+  openSheet(`<h2>Filter</h2>
+    <div class="field"><label>Art</label><div class="seg" id="fType">${[["all","Beides"],["f","Filme"],["s","Serien"]].map(([v,l])=>`<button data-v="${v}" aria-pressed="${f.type===v}">${l}</button>`).join("")}</div></div>
+    <div class="field"><label>Genres (leer = alle)</label><div class="pick" id="fGen">${GENRES.map(g=>`<button data-v="${g}" aria-pressed="${f.genres.includes(g)}">${g}</button>`).join("")}</div></div>
+    <div class="field"><label for="fMin">Mindestbewertung</label><div class="range-row"><input type="range" id="fMin" min="0" max="9" step="0.5" value="${f.min}"><output id="fMinOut">${f.min? "★ "+f.min.toFixed(1) : "egal"}</output></div></div>
+    <div class="field"><label>${CAT_META ? "Läuft im Abo bei (leer = egal)" : "Streamingdienst (Eigenproduktionen)"}</label><div class="pick" id="fProv">${provList.map(n=>`<button data-v="${esc(n)}" aria-pressed="${f.prov.includes(n)}">${esc(n)}</button>`).join("")}</div></div>
+    <div class="field"><label for="fLen">Höchstens so lang (Film bzw. Folge)</label><div class="range-row"><input type="range" id="fLen" min="0" max="180" step="15" value="${f.maxlen}"><output id="fLenOut">${lenLabel(f.maxlen)}</output></div></div>
+    <div class="field"><label>Erscheinungsjahr</label><div class="years"><select class="input" id="fFrom" aria-label="Von">${yOpt(f.from)}</select><span>bis</span><select class="input" id="fTo" aria-label="Bis">${yOpt(f.to)}</select></div></div>
+    <div class="links"><button class="btn ghost" id="fReset">Zurücksetzen</button><button class="btn primary" id="fApply">Anwenden</button></div>`);
+  const root = $("#sheetIn");
+  root.querySelectorAll("#fType button").forEach(b => b.onclick = () => { f.type = b.dataset.v; root.querySelectorAll("#fType button").forEach(x => x.setAttribute("aria-pressed", x===b)); });
+  const multi = (sel, key) => root.querySelectorAll(sel+" button").forEach(b => b.onclick = () => { const v=b.dataset.v, a=f[key]; const i=a.indexOf(v); i<0?a.push(v):a.splice(i,1); b.setAttribute("aria-pressed", i<0); });
+  multi("#fGen","genres"); multi("#fProv","prov");
+  root.querySelector("#fMin").oninput = e => { f.min = +e.target.value; root.querySelector("#fMinOut").textContent = f.min ? "★ "+f.min.toFixed(1) : "egal"; };
+  root.querySelector("#fLen").oninput = e => { f.maxlen = +e.target.value; root.querySelector("#fLenOut").textContent = lenLabel(f.maxlen); };
+  root.querySelector("#fReset").onclick = () => { S.filters = DEFAULT_FILTERS(); applyFilters(); };
+  root.querySelector("#fApply").onclick = () => {
+    f.from = +root.querySelector("#fFrom").value; f.to = +root.querySelector("#fTo").value;
+    if (f.from > f.to) [f.from, f.to] = [f.to, f.from];
+    S.filters = f; applyFilters();
+  };
+}
+function applyFilters(){
+  lsSet("filmduo.filters2", S.filters);
+  $("#filterDot").hidden = !filtersActive();
+  rebuildQueue(); renderDeck(); closeSheet();
+  toast(`${S.queue.length} Titel zum Swipen`);
+}
+
+/* ---------- duo view ---------- */
+function renderDuo(){
+  const v = $("#view-duo");
+  let h = `<h1 class="page">Duo</h1><p class="sub">Swipt getrennt, matcht gemeinsam.</p><div class="list" style="gap:14px">`;
+  if (S.mode === "loading") {
+    h += `<div class="panel"><h3>Verbinde …</h3><p>Einen Moment, dein Duo wird geladen.</p></div>`;
+  } else if (S.mode === "local") {
+    h += `<div class="panel"><h3>Nur auf diesem Gerät</h3><p>Du bist nicht angemeldet oder diese Ansicht kann keine Daten teilen. Du kannst trotzdem swipen; Matches mit deinem Partner gibt es aber erst, wenn ihr die Seite angemeldet über claude.ai öffnet.</p></div>`;
+  } else if (!S.pair) {
+    h += `<div class="panel"><h3>Neues Duo erstellen</h3><p>Du bekommst einen Code, den dein Partner eingibt.</p><button class="btn primary" id="createBtn">Duo erstellen</button></div>
+      <div class="panel"><h3>Einem Duo beitreten</h3><div class="field"><label for="joinCode">Code von deinem Partner</label><input class="input code-in" id="joinCode" maxlength="6" autocomplete="off" autocapitalize="characters" placeholder="z. B. K7QM2X"></div><div class="err" id="joinErr" hidden></div><button class="btn" id="joinBtn">Beitreten</button></div>`;
+  } else {
+    const me = mine(), th = theirs();
+    h += `<div class="panel"><h3>Euer Duo-Code</h3><div class="code" id="codeText">${esc(S.pair)}</div><div class="row"><button class="btn" id="copyBtn">Code kopieren</button></div>
+      <div class="people"><div class="person"><img src="${esc(S.meAvatar)}" alt=""><span>${esc(S.meName || "Du")}</span></div>${S.partner ? `<div class="person"><img src="${esc(S.partnerAvatar)}" alt=""><span>${esc(S.partnerName || "Dein Duo")}</span></div>` : `<div class="person"><span class="wait"></span><span style="color:var(--muted)">Wartet auf Partner …</span></div>`}</div>
+      <div class="stats"><div class="stat"><b>${me.size}</b><span>von dir bewertet</span></div><div class="stat"><b>${th.size}</b><span>vom Partner</span></div><div class="stat"><b>${matches().length}</b><span>Matches</span></div></div></div>`;
+  }
+  if (S.mode !== "loading") h += `<div class="panel"><h3>Eigenen Titel hinzufügen</h3><p>Fehlt euch ein Film oder eine Serie? Füge ihn hinzu, dann taucht er bei ${S.pair ? "euch beiden" : "dir"} im Stapel auf.</p>
+      <div class="field"><label for="addTitle">Titel</label><input class="input" id="addTitle" maxlength="80" autocomplete="off"></div>
+      <div class="row"><div class="field" style="flex:1;min-width:110px"><label for="addYear">Jahr</label><input class="input" id="addYear" type="number" inputmode="numeric" min="1900" max="2030" value="2026"></div><div class="field" style="flex:1;min-width:140px"><label>Art</label><div class="seg" id="addType" style="grid-template-columns:1fr 1fr"><button data-v="f" aria-pressed="true">Film</button><button data-v="s" aria-pressed="false">Serie</button></div></div></div>
+      <div class="field"><label for="addGenre">Genre</label><select class="input" id="addGenre">${GENRES.map(g=>`<option${g==="Drama"?" selected":""}>${g}</option>`).join("")}</select></div>
+      <div class="field"><label for="addDesc">Kurzbeschreibung (optional)</label><input class="input" id="addDesc" maxlength="200" autocomplete="off"></div>
+      <div class="err" id="addErr" hidden></div><button class="btn primary" id="addBtn">Hinzufügen</button></div>`;
+  if (S.isOwner && S.mode === "db") h += `<div class="panel"><h3>Partner einladen</h3><ol class="steps"><li>Öffne oben das <b>Teilen</b>-Menü dieser Seite.</li><li>Lade deinen Partner <b>per E-Mail als Bearbeiter</b> ein (kein öffentlicher Link, sonst kann er nicht mitswipen).</li><li>Er braucht ein kostenloses Claude-Konto, öffnet den Link und gibt euren Duo-Code ein.</li></ol></div>`;
+  if (S.mode !== "loading") {
+    const tm = CATALOG.filter(x => x.tmdb), nF = tm.filter(x => x.type === "f").length, nS = tm.length - nF;
+    h += `<div class="panel"><h3>Katalog</h3>${CAT_META
+      ? `<p>${nF.toLocaleString("de-DE")} Filme und ${nS.toLocaleString("de-DE")} Serien von TMDB, Stand ${new Date(CAT_META.updated).toLocaleDateString("de-DE")}. Wird einmal pro Woche aktualisiert.</p>`
+      : `<p>${CATALOG.length} Titel aus dem Startkatalog. ${S.mode === "db" ? "Sobald der TMDB-Katalog geladen ist, erscheinen hier tausende Titel mit Laufzeit, Besetzung und Streamingdiensten." : ""}</p>`}
+      <p class="credit">Diese App verwendet die TMDB-API, ist aber weder von TMDB unterstützt noch zertifiziert. Streaminganbieter: JustWatch.</p></div>`;
+  }
+  h += `<div class="panel"><h3>Auf den Home-Bildschirm</h3><p><b style="color:var(--fg)">iPhone:</b> Seite in Safari öffnen, unten auf Teilen tippen, dann „Zum Home-Bildschirm“.</p><p><b style="color:var(--fg)">Android:</b> Seite in Chrome öffnen, oben rechts auf ⋮ tippen, dann „Zum Startbildschirm hinzufügen“.</p><p>Öffnest du den Link in der Claude-App, wähle zuerst „Im Browser öffnen“.</p></div>`;
+  if (S.pair) h += `<div class="panel"><h3>Duo verlassen</h3><p>Deine Likes bleiben gespeichert, falls du später mit demselben Code zurückkommst.</p><div class="row" id="leaveRow"><button class="btn danger" id="leaveBtn">Duo verlassen</button></div></div>`;
+  h += `</div>`;
+  v.innerHTML = h;
+
+  $("#createBtn")?.addEventListener("click", createPair);
+  $("#joinBtn")?.addEventListener("click", joinPair);
+  $("#joinCode")?.addEventListener("keydown", e => { if (e.key === "Enter") joinPair(); });
+  $("#copyBtn")?.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(S.pair); toast("Code kopiert"); }
+    catch { const r = document.createRange(); r.selectNodeContents($("#codeText")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Code markiert – jetzt kopieren"); }
+  });
+  v.querySelectorAll("#addType button").forEach(b => b.onclick = () => v.querySelectorAll("#addType button").forEach(x => x.setAttribute("aria-pressed", x===b)));
+  $("#addBtn")?.addEventListener("click", addCustom);
+  $("#leaveBtn")?.addEventListener("click", () => {
+    $("#leaveRow").innerHTML = `<button class="btn" id="leaveNo">Abbrechen</button><button class="btn danger" id="leaveYes">Ja, verlassen</button>`;
+    $("#leaveNo").onclick = renderDuo; $("#leaveYes").onclick = leavePair;
+  });
+}
+
+async function addCustom(){
+  const title = $("#addTitle").value.trim(), year = Math.round(+$("#addYear").value), err = $("#addErr");
+  err.hidden = true;
+  if (!title) { err.textContent = "Gib einen Titel ein."; err.hidden = false; return; }
+  if (!(year >= 1900 && year <= 2030)) { err.textContent = "Das Jahr muss zwischen 1900 und 2030 liegen."; err.hidden = false; return; }
+  const type = $("#addType [aria-pressed=true]").dataset.v;
+  const id = slug(title) + "-" + year + "-eigen";
+  if (byId(id)) { err.textContent = "Diesen Titel gibt es schon."; err.hidden = false; return; }
+  const it = {id, type, title, year, genres:[$("#addGenre").value], rating:0, prov:emptyProv(), cast:[], crew:[], desc:$("#addDesc").value.trim(), custom:true};
+  S.custom.push(it); INDEX.set(id, it); S.queue.unshift(id); renderDeck();
+  if (S.mode === "db" && S.pair) {
+    try { await S.db.doc(`pairs/${S.pair}/custom/${id}`).set({title, year, type, genres: it.genres, desc: it.desc, by: S.uid, t: Date.now()}); }
+    catch (e) { toast(writeError(e)); }
+  } else saveLocal();
+  toast(`„${title}“ liegt oben auf deinem Stapel`);
+  renderDuo();
+}
+
+/* ---------- pairing (db) ---------- */
+const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const newCode = () => Array.from(crypto.getRandomValues(new Uint8Array(6)), b => CODE_CHARS[b % CODE_CHARS.length]).join("");
+const profileRef = () => S.db.doc(`data/users/${S.uid}/profile`);
+
+async function createPair(){
+  const btn = $("#createBtn"); btn.disabled = true;
+  try {
+    let code;
+    for (let k = 0; k < 5; k++) { code = newCode(); const s = await S.db.doc("pairs/"+code).get(); if (!s.exists) break; }
+    await S.db.doc("pairs/"+code).set({members:[S.uid], created: Date.now()});
+    await profileRef().set({pair: code});
+    await enterPair(code);
+    toast("Duo erstellt – schick deinem Partner den Code");
+  } catch (e) { btn.disabled = false; toast(writeError(e)); }
+}
+async function joinPair(){
+  const code = ($("#joinCode").value || "").trim().toUpperCase(), err = $("#joinErr");
+  err.hidden = true;
+  if (!/^[A-Z0-9]{6}$/.test(code)) { err.textContent = "Der Code hat 6 Zeichen."; err.hidden = false; return; }
+  $("#joinBtn").disabled = true;
+  try {
+    const ref = S.db.doc("pairs/"+code), s = await ref.get();
+    if (!s.exists) { err.textContent = "Diesen Code gibt es nicht. Prüfe ihn noch einmal."; err.hidden = false; $("#joinBtn").disabled = false; return; }
+    const members = (s.data().members || []).slice();
+    if (!members.includes(S.uid)) {
+      if (members.length >= 2) { err.textContent = "Dieses Duo ist schon vollständig."; err.hidden = false; $("#joinBtn").disabled = false; return; }
+      members.push(S.uid); await ref.update({members});
+    }
+    await profileRef().set({pair: code});
+    await enterPair(code);
+    toast("Ihr seid jetzt ein Duo");
+  } catch (e) { $("#joinBtn").disabled = false; err.textContent = writeError(e); err.hidden = false; }
+}
+async function leavePair(){
+  const code = S.pair;
+  try {
+    const ref = S.db.doc("pairs/"+code), s = await ref.get();
+    if (s.exists) await ref.update({members: (s.data().members||[]).filter(m => m !== S.uid)});
+    await profileRef().set({pair: null});
+  } catch (e) { toast(writeError(e)); return; }
+  exitPair(); toast("Duo verlassen");
+}
+function exitPair(){
+  S.subs.forEach(u => u()); S.subs = [];
+  S.pair = null; S.members = []; S.partner = null; S.partnerName = ""; S.swipes = new Map(); S.watchedRaw = new Set(); S.custom = []; S.undo = [];
+  reindex(); rebuildQueue(); renderAll();
+}
+
+async function enterPair(code){
+  S.subs.forEach(u => u()); S.subs = [];
+  // Swipes made before the duo existed are carried into it.
+  const carry = [...S.swipes.values()].filter(s => s.u === S.uid || s.u === "me").map(s => ({...s, u: S.uid, t: Date.now()}));
+  S.pair = code; S.swipes = new Map(carry.map(s => [s.u+"~"+s.i, s])); S.watchedRaw = new Set(); S.custom = []; S.undo = []; S.firstSwipeSnap = true;
+  reindex(); rebuildQueue(); renderAll();
+  const base = S.db.doc("pairs/"+code);
+  (async () => { for (const s of carry) { try { await base.collection("swipes").doc(s.u+"~"+s.i).set(s); } catch { break; } } })();
+  const onErr = e => { if (e && e.code !== "revoked") toast("Verbindung unterbrochen. Lade die Seite neu."); };
+  S.subs.push(base.onSnapshot(async snap => {
+    S.members = snap.exists ? (snap.data().members || []) : [];
+    const p = S.members.find(m => m !== S.uid) || null;
+    const changed = p !== S.partner; S.partner = p;
+    await resolveNames();
+    if (changed) { rebuildQueue(); renderDeck(); }
+    renderHeader(); renderBadge(); if (S.tab === "duo") renderDuo(); if (S.tab === "matches") renderMatches();
+  }, onErr));
+  S.subs.push(base.collection("swipes").onSnapshot(snap => {
+    const fresh = new Map();
+    for (const d of snap.docs) { const x = d.data(); if (x && x.i) fresh.set(d.id, x); }
+    // keep my optimistic writes that haven't landed yet
+    for (const [k,v] of S.swipes) if (v.u === S.uid && !fresh.has(k) && Date.now() - v.t < 60000) fresh.set(k, v);
+    const before = matches().map(m => m.id);
+    S.swipes = fresh;
+    if (S.firstSwipeSnap) { S.firstSwipeSnap = false; rebuildQueue(); renderDeck(); }
+    else {
+      const mineNow = mine(); S.queue = S.queue.filter(id => !mineNow.has(id));
+      const newM = matches().filter(m => !before.includes(m.id));
+      // a match created by the partner's swipe (mine happens in commitSwipe)
+      for (const ch of snap.docChanges()) { const x = ch.doc.data(); if (ch.type === "added" && x && x.u === S.partner && x.l && newM.some(m => m.id === x.i)) { toast(`Neues Match: ${byId(x.i)?.title || "ein Titel"}`); } }
+    }
+    renderBadge(); if (S.tab === "matches") renderMatches(); if (S.tab === "duo") renderDuo();
+  }, onErr));
+  S.subs.push(base.collection("watched").onSnapshot(snap => {
+    S.watchedRaw = new Set(snap.docs.map(d => d.id));
+    S.watched = new Set([...S.watchedRaw].map(canon));
+    renderBadge(); if (S.tab === "matches") renderMatches();
+  }, onErr));
+  S.subs.push(base.collection("custom").onSnapshot(snap => {
+    const known = new Set(S.custom.map(c => c.id));
+    S.custom = snap.docs.map(d => { const x = d.data() || {}; return {id: d.id, type: x.type === "s" ? "s" : "f", title: String(x.title || "Ohne Titel").slice(0,80), year: +x.year || 2026, genres: Array.isArray(x.genres) && x.genres.length ? x.genres.map(String).slice(0,3) : ["Drama"], rating: 0, prov: emptyProv(), cast: [], crew: [], desc: String(x.desc || "").slice(0,200), custom: true}; });
+    reindex();
+    const me = mine();
+    for (const c of S.custom) if (!known.has(c.id) && !me.has(c.id) && !S.queue.includes(c.id) && passes(c)) S.queue.splice(Math.min(2, S.queue.length), 0, c.id);
+    renderDeck();
+  }, onErr));
+}
+
+async function resolveNames(){
+  if (!S.user) return;
+  const ids = [S.uid, S.partner].filter(Boolean);
+  const ps = await S.user.profiles(ids);
+  S.meName = ps[S.uid]?.name || ""; S.meAvatar = ps[S.uid]?.avatarUrl || "";
+  if (S.partner) { S.partnerName = ps[S.partner]?.name || ""; S.partnerAvatar = ps[S.partner]?.avatarUrl || ""; }
+}
+
+/* ---------- chrome ---------- */
+function renderHeader(){
+  const c = $("#partnerChip");
+  if (S.partner) { c.hidden = false; c.innerHTML = `<img src="${esc(S.partnerAvatar)}" alt=""><span>mit ${esc(S.partnerName || "deinem Duo")}</span>`; }
+  else c.hidden = true;
+  $("#filterDot").hidden = !filtersActive();
+  const b = $("#banner");
+  if (S.mode === "db" && !S.pair) { b.hidden = false; b.innerHTML = `<span>Bilde ein Duo, damit eure Likes zu Matches werden.</span><button id="bannerGo">Duo bilden</button>`; $("#bannerGo").onclick = () => setTab("duo"); }
+  else if (S.mode === "db" && S.pair && !S.partner) { b.hidden = false; b.innerHTML = `<span>Code <b style="color:var(--fg);letter-spacing:.1em">${esc(S.pair)}</b> an deinen Partner schicken</span><button id="bannerGo">Details</button>`; $("#bannerGo").onclick = () => setTab("duo"); }
+  else if (S.mode === "local") { b.hidden = false; b.innerHTML = `<span>Nur auf diesem Gerät gespeichert.</span><button id="bannerGo">Warum?</button>`; $("#bannerGo").onclick = () => setTab("duo"); }
+  else b.hidden = true;
+}
+function setTab(t){
+  S.tab = t;
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
+  ["swipe","matches","duo"].forEach(x => $("#view-"+x).hidden = x !== t);
+  $("#filterBtn").style.visibility = t === "swipe" ? "visible" : "hidden";
+  if (t === "matches") renderMatches();
+  if (t === "duo") renderDuo();
+}
+function renderAll(){ renderHeader(); renderDeck(); renderBadge(); if (S.tab === "matches") renderMatches(); if (S.tab === "duo") renderDuo(); }
+let toastT;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2600); }
+
+/* ---------- wiring ---------- */
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+$("#likeBtn").onclick = () => swipeTop(true);
+$("#nopeBtn").onclick = () => swipeTop(false);
+$("#undoBtn").onclick = undo;
+$("#infoBtn").onclick = () => openDetail(byId(S.queue[0]));
+$("#filterBtn").onclick = openFilters;
+$("#backdrop").onclick = closeSheet;
+document.addEventListener("keydown", e => {
+  if (!$("#sheet").hidden && e.key === "Escape") { closeSheet(); return; }
+  if (!$("#matchOverlay").hidden && e.key === "Escape") { $("#matchOverlay").hidden = true; return; }
+  if (S.tab !== "swipe" || !$("#sheet").hidden || e.target.closest("input,select,textarea")) return;
+  if (e.key === "ArrowRight") swipeTop(true);
+  else if (e.key === "ArrowLeft") swipeTop(false);
+  else if (e.key === "ArrowUp") openDetail(byId(S.queue[0]));
+});
+$("#view-matches").addEventListener("keydown", e => { if (e.key === "Enter" && e.target.matches("[data-open]")) openDetail(byId(e.target.dataset.open)); });
+
+/* ---------- boot ---------- */
+rebuildQueue(); renderAll();
+
+(async () => {
+  let db = null, user = null;
+  try { [db, user] = await Promise.all([window.claude?.use?.("db") ?? null, window.claude?.use?.("user") ?? null]); } catch {}
+  S.user = user;
+  const uid = user ? await user.id() : null;
+  if (!db || !uid) { S.mode = "local"; loadLocal(); rebuildQueue(); renderAll(); return; }
+  S.db = db; S.uid = uid; S.mode = "db";
+  S.isOwner = await user.isOwner();
+  // TMDB-Katalog laden (läuft parallel zum Duo, ersetzt danach den Startkatalog)
+  loadCatalog(db).then(ok => {
+    if (!ok) return;
+    rebuildQueue(); renderAll();
+    toast(`${CATALOG.filter(x => x.tmdb).length.toLocaleString("de-DE")} Titel von TMDB geladen`);
+  }).catch(() => {});
+  try {
+    const p = await profileRef().get();
+    const code = p.exists ? p.data().pair : null;
+    if (code) {
+      const pairSnap = await db.doc("pairs/"+code).get();
+      if (pairSnap.exists) { await enterPair(code); return; }
+    }
+  } catch {}
+  await resolveNames();
+  rebuildQueue(); renderAll();
+})();
+</script>

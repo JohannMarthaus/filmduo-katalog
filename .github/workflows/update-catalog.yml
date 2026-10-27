@@ -1,0 +1,44 @@
+name: Katalog aktualisieren
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # jede Nacht ca. 03:17 / 04:17 Uhr deutscher Zeit
+  workflow_dispatch: {}    # manuell starten: Actions → Katalog aktualisieren → Run workflow
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Daten von TMDB holen
+        env:
+          TMDB_TOKEN: ${{ secrets.TMDB_TOKEN }}
+        run: node scripts/fetch-tmdb.mjs
+
+      # Der Katalog landet auf dem Branch "katalog", der jede Nacht komplett ersetzt wird.
+      # So wächst das Repository nicht um mehrere MB pro Tag.
+      - name: Auf Branch "katalog" veröffentlichen
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd data
+          git init -q -b katalog
+          git config user.name "katalog-bot"
+          git config user.email "katalog-bot@users.noreply.github.com"
+          git add .
+          git commit -q -m "Katalog $(date -u +%Y-%m-%d)"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" katalog
+          echo "Fertig: $(node -e 'const m=require("./meta.json");console.log(m.count+" Titel in "+m.chunks+" Teilen")')"
