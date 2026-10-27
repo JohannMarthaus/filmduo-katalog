@@ -132,6 +132,8 @@ async function detail(kind, id) {
     tagline: (d.tagline || "").trim().slice(0, 160),
     prov,
     trailer: trailerKey(d.videos),
+    poster: d.poster_path || "",          // Bild: https://image.tmdb.org/t/p/w500 + poster (deutsches Plakat, wenn vorhanden)
+    lang: d.original_language || "",      // Originalsprache (ISO 639-1, z. B. "en", "de", "ko")
     pop: Math.round(d.popularity || 0),
   };
   // Die App verlinkt die TMDB-Anbieterseite selbst; pop dient nur der Sortierung und fällt unten weg.
