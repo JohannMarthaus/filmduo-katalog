@@ -4,3 +4,5 @@ node_modules/
 .DS_Store
 Thumbs.db
 data/
+# Die App liegt lokal als Unterordner, hat aber ihr eigenes Repo (JohannMarthaus/filmduo)
+filmduo-app/

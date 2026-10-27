@@ -42,3 +42,13 @@ jobs:
           git commit -q -m "Katalog $(date -u +%Y-%m-%d)"
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" katalog
           echo "Fertig: $(node -e 'const m=require("./meta.json");console.log(m.count+" Titel in "+m.chunks+" Teilen")')"
+
+      # Supabase pausiert kostenlose Projekte nach einer Woche ohne Aktivität.
+      # Der Aufruf hält es wach. URL und Publishable key sind öffentlich (stehen auch in der App).
+      - name: Supabase wachhalten
+        if: always()
+        continue-on-error: true
+        run: |
+          curl -fsS -X POST "https://vkwccttjtiogctliapkj.supabase.co/rest/v1/rpc/ping" \
+            -H "apikey: sb_publishable_BaKwjtfdwFZQo8yD6_p1fg_rPaMiS6L" \
+            -H "Content-Type: application/json" -d '{}'
