@@ -1,6 +1,6 @@
 # Filmduo – Katalog
 
-Holt jede Nacht Filme und Serien von TMDB (deutsche Texte, Streaminganbieter in Deutschland über JustWatch) für die App **Filmduo**.
+Holt jede Nacht alle Filme und Serien, die in Deutschland im Abo, kostenlos oder mit Werbung streambar sind, von TMDB (deutsche Texte, Streaminganbieter in Deutschland über JustWatch) für die App **Filmduo**.
 
 - **App:** https://johannmarthaus.github.io/filmduo/ (Repo [filmduo](https://github.com/JohannMarthaus/filmduo))
 - **Katalog:** Branch [`katalog`](https://github.com/JohannMarthaus/filmduo-katalog/tree/katalog) – `meta.json` und `chunks/c00.json` …
@@ -33,7 +33,7 @@ $env:TMDB_TOKEN="dein-token"     (PowerShell)
 node scripts/fetch-tmdb.mjs
 ```
 
-Weniger Seiten für einen schnellen Test: `MOVIE_POPULAR_PAGES=2 MOVIE_TOP_PAGES=2 TV_POPULAR_PAGES=1 TV_TOP_PAGES=1`.
+Weniger Seiten für einen schnellen Test: `MOVIE_PAGES=2 TV_PAGES=1`. Größe des Katalogs: `MOVIE_PAGES` (Standard 350), `TV_PAGES` (175), Mindeststimmen `MOVIE_MIN_VOTES` (50), `TV_MIN_VOTES` (20).
 
 ## Hinweis
 

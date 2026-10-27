@@ -11,12 +11,17 @@ const USE_KEY = TOKEN.length < 40; // v3-API-Schlüssel (32 Zeichen) statt v4-To
 
 const API = "https://api.themoviedb.org/3";
 const LANG = "de-DE", REGION = "DE";
+// Geholt wird alles, was in Deutschland im Abo, kostenlos oder mit Werbung streambar ist,
+// sortiert nach Beliebtheit. Die Seitenzahl (je 20 Titel) begrenzt die Größe des Katalogs.
 const PAGES = {
-  moviePopular: +process.env.MOVIE_POPULAR_PAGES || 100, // je 20 Titel
-  movieTop: +process.env.MOVIE_TOP_PAGES || 100,
-  tvPopular: +process.env.TV_POPULAR_PAGES || 50,
-  tvTop: +process.env.TV_TOP_PAGES || 50,
+  movies: +process.env.MOVIE_PAGES || 350, // höchstens ~7.000 Filme
+  tv: +process.env.TV_PAGES || 175,        // höchstens ~3.500 Serien
 };
+const MIN_VOTES = {
+  movies: +process.env.MOVIE_MIN_VOTES || 50,
+  tv: +process.env.TV_MIN_VOTES || 20,
+};
+const MONETIZATION = "flatrate|free|ads";
 const CONCURRENCY = 8;
 const CHUNK_BYTES = 200_000; // < 256 KiB pro Datenbank-Dokument
 const OUT = new URL("../data/", import.meta.url);
@@ -63,8 +68,9 @@ async function discover(kind, sort, pages, minVotes) {
   for (let page = 1; page <= Math.min(pages, 500); page++) {
     const d = await get(`/discover/${kind}`, {
       language: LANG, sort_by: sort, page, include_adult: "false",
-      "vote_count.gte": minVotes, watch_region: REGION,
+      "vote_count.gte": minVotes, watch_region: REGION, with_watch_monetization_types: MONETIZATION,
     });
+    if (page === 1) console.log(`  ${kind}: ${d?.total_results ?? 0} Treffer bei TMDB`);
     if (!d?.results?.length) break;
     ids.push(...d.results.map(x => x.id));
     if (page >= d.total_pages) break;
@@ -154,19 +160,14 @@ async function detail(kind, id) {
 
 async function main() {
   console.log("Sammle Titel …");
-  const movieIds = [...new Set([
-    ...await discover("movie", "popularity.desc", PAGES.moviePopular, 80),
-    ...await discover("movie", "vote_count.desc", PAGES.movieTop, 500),
-  ])];
-  const tvIds = [...new Set([
-    ...await discover("tv", "popularity.desc", PAGES.tvPopular, 50),
-    ...await discover("tv", "vote_count.desc", PAGES.tvTop, 300),
-  ])];
+  const movieIds = [...new Set(await discover("movie", "popularity.desc", PAGES.movies, MIN_VOTES.movies))];
+  const tvIds = [...new Set(await discover("tv", "popularity.desc", PAGES.tv, MIN_VOTES.tv))];
   console.log(`${movieIds.length} Filme, ${tvIds.length} Serien. Lade Details …`);
 
   const movies = await pool(movieIds, id => detail("movie", id));
   const shows = await pool(tvIds, id => detail("tv", id));
-  const items = [...movies, ...shows].filter(Boolean).sort((a, b) => b.pop - a.pop);
+  // Nur behalten, was laut Detaildaten wirklich im Abo, kostenlos oder mit Werbung läuft
+  const items = [...movies, ...shows].filter(it => it && it.prov.flat.length).sort((a, b) => b.pop - a.pop);
   for (const it of items) delete it.pop; // Reihenfolge = Beliebtheit
   console.log(`${items.length} Titel mit deutscher Beschreibung.`);
   if (items.length < 500) throw new Error("Zu wenige Titel – Abbruch, damit der alte Katalog erhalten bleibt.");
