@@ -1,0 +1,110 @@
+{
+  "updated": "2026-10-31T08:35:48.882Z",
+  "count": 10499,
+  "movies": 7000,
+  "shows": 3499,
+  "chunks": 62,
+  "providers": [
+    {
+      "name": "Netflix",
+      "count": 2007
+    },
+    {
+      "name": "Netflix Standard with Ads",
+      "count": 1964
+    },
+    {
+      "name": "Amazon Prime Video",
+      "count": 1630
+    },
+    {
+      "name": "Amazon Prime Video with Ads",
+      "count": 1614
+    },
+    {
+      "name": "Disney Plus",
+      "count": 1604
+    },
+    {
+      "name": "Magenta TV+",
+      "count": 1132
+    },
+    {
+      "name": "Joyn",
+      "count": 735
+    },
+    {
+      "name": "Crunchyroll",
+      "count": 675
+    },
+    {
+      "name": "Crunchyroll Amazon Channel",
+      "count": 658
+    },
+    {
+      "name": "Wow Fiction Amazon Channel",
+      "count": 640
+    },
+    {
+      "name": "HBO Max",
+      "count": 624
+    },
+    {
+      "name": "HBO Max Amazon Channel",
+      "count": 618
+    },
+    {
+      "name": "WOW",
+      "count": 538
+    },
+    {
+      "name": "Paramount+ Amazon Channel",
+      "count": 467
+    },
+    {
+      "name": "Sky Go",
+      "count": 464
+    },
+    {
+      "name": "Paramount Plus",
+      "count": 454
+    },
+    {
+      "name": "RTL+ Max Amazon Channel",
+      "count": 434
+    },
+    {
+      "name": "Joyn Plus",
+      "count": 415
+    },
+    {
+      "name": "RTL+",
+      "count": 400
+    },
+    {
+      "name": "Rakuten TV",
+      "count": 328
+    },
+    {
+      "name": "Netzkino",
+      "count": 327
+    },
+    {
+      "name": "Amazon Prime Video Free with Ads",
+      "count": 290
+    },
+    {
+      "name": "Amazon MX Player",
+      "count": 287
+    },
+    {
+      "name": "Seven Entertainment Amazon Channel",
+      "count": 285
+    },
+    {
+      "name": "YouTube Free",
+      "count": 239
+    }
+  ],
+  "source": "TMDB"
+}
